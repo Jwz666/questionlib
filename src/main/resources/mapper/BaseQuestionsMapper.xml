@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tbsinfo.questionlib.dao.BaseQuestionsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tbsinfo.questionlib.model.BaseQuestions">
+        <id column="id" property="id" />
+        <result column="question_type" property="questionType" />
+        <result column="content" property="content" />
+        <result column="optionList" property="optionList" />
+        <result column="answer" property="answer" />
+        <result column="analysis" property="analysis" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="status" property="status" />
+        <result column="source" property="source" />
+        <result column="comment" property="comment" />
+        <result column="question_design_time" property="questionDesignTime" />
+        <result column="creator_id" property="creatorId" />
+    </resultMap>
+
+</mapper>

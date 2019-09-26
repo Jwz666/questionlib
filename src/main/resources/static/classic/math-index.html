@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>TBS-data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="../../assets/css/dashforge.css">
+    <link rel="stylesheet" href="../../assets/css/dashforge.auth.css">
+    <link rel="stylesheet" href="../../assets/css/iconfont.css">
+    <link rel="stylesheet" href="../../assets/css/auth.css">
+  </head>
+  <body>
+
+  <header class="navbar navbar-header navbar-header-fixed">
+    <div class="navbar-brand">
+      <img src="../../assets/img/TBS%20logo.png" alt="">
+    </div><!-- navbar-brand -->
+    <div class="navbar-right">
+      <div class="dropdown dropdown-profile">
+        <a href="" class="dropdown-link" data-toggle="dropdown" data-display="static">
+          <div class="avatar avatar-sm"><img src="https://via.placeholder.com/500" class="rounded-circle" alt="">
+          </div>
+        </a><!-- dropdown-link -->
+        <div class="dropdown-menu dropdown-menu-right tx-13">
+          <div class="avatar avatar-lg mg-b-15"><img src="https://via.placeholder.com/500" class="rounded-circle"
+                                                     alt=""></div>
+          <h6 class="tx-semibold mg-b-5">Katherine Pechon</h6>
+          <a href="page-signin.html" class="dropdown-item"><i data-feather="log-out"></i>Sign Out</a>
+        </div><!-- dropdown-menu -->
+      </div><!-- dropdown -->
+    </div><!-- navbar-right -->
+  </header><!-- navbar -->
+
+    <div class="content content-fixed content-auth-alt">
+      <div class="container ht-100p tx-center">
+        <div class="row justify-content-center">
+          <div class="col-10 col-sm-6 col-md-4 col-lg-3 d-flex flex-column">
+            <div class="tx-100 lh-1"><i class="icon ion-ios-bicycle"></i></div>
+            <i class="iconfont _class">&#xe659;</i>
+            <h3 class="mg-b-25">题库管理</h3>
+            <p class="tx-color-03 mg-b-25">对导入题目进行编辑等其他功能。</p>
+<!--            <h1 class="tx-rubik tx-normal mg-b-30 mg-t-auto">$19.00</h1>-->
+            <button class="btn btn-primary btn-block" onclick="questionManage()">进入</button>
+          </div><!-- col -->
+          <div class="col-10 col-sm-6 col-md-4 col-lg-3 mg-t-40 mg-sm-t-0 d-flex flex-column">
+            <div class="tx-100 lh-1"><i class="icon ion-ios-car"></i></div>
+            <i class="iconfont _class">&#xe81b;</i>
+            <h3 class="mg-b-25">能力树管理</h3>
+            <p class="tx-color-03 mg-b-25">对标签进行编辑管理等。</p>
+<!--            <h1 class="tx-rubik tx-normal mg-b-30 mg-t-auto">$99.00</h1>-->
+            <button class="btn btn-primary btn-block" onclick="tagManage()">进入</button>
+          </div><!-- col -->
+          <div class="col-10 col-sm-6 col-md-4 col-lg-3 mg-t-40 mg-md-t-0 d-flex flex-column">
+            <div class="tx-100 lh-1"><i class="icon ion-ios-boat"></i></div>
+            <i class="iconfont _class">&#xe628;</i>
+            <h3 class="mg-b-25">年级管理</h3>
+            <p class="tx-color-03 mg-b-25">对年级进行管理。</p>
+<!--            <h1 class="tx-rubik tx-normal mg-b-30 mg-t-auto">$199.00</h1>-->
+            <button class="btn btn-primary btn-block" onclick="gradeManage()">进入</button>
+          </div><!-- col -->
+        </div><!-- row -->
+      </div><!-- container -->
+    </div><!-- content -->
+
+    <footer class="footer">
+    </footer>
+
+
+    <script src="../../lib/jquery/jquery.min.js"></script>
+    <script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../lib/feather-icons/feather.min.js"></script>
+    <script src="../../lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+    <script src="../../assets/js/dashforge.js"></script>
+
+  <script>
+    function questionManage() {
+      window.location.href="math-exe.html";
+    }
+
+    function tagManage() {
+      window.location.href="math-tags.html";
+    }
+
+    function gradeManage() {
+      window.location.href="math-grade.html";
+    }
+  </script>
+
+  </body>
+</html>

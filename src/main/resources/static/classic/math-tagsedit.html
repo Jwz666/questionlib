@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>TBS-data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="../../assets/css/dashforge.css">
+    <link rel="stylesheet" href="../../assets/css/dashforge.dashboard.css">
+    <link rel="stylesheet" href="../../assets/css/auth.css">
+    <link rel="stylesheet" href="../../assets/css/iconfont.css">
+</head>
+
+<body class="page-profile">
+<header class="navbar navbar-header navbar-header-fixed">
+    <div class="navbar-brand">
+        <img src="../../assets/img/TBS%20logo.png" alt="">
+    </div><!-- navbar-brand -->
+    <div class="navbar-right">
+        <div class="dropdown dropdown-profile">
+            <a href="" class="dropdown-link" data-toggle="dropdown" data-display="static">
+                <div class="avatar avatar-sm"><img src="https://via.placeholder.com/500" class="rounded-circle" alt="">
+                </div>
+            </a><!-- dropdown-link -->
+            <div class="dropdown-menu dropdown-menu-right tx-13">
+                <div class="avatar avatar-lg mg-b-15"><img src="https://via.placeholder.com/500" class="rounded-circle"
+                                                           alt=""></div>
+                <h6 class="tx-semibold mg-b-5">Katherine Pechon</h6>
+                <a href="page-signin.html" class="dropdown-item"><i data-feather="log-out"></i>Sign Out</a>
+            </div><!-- dropdown-menu -->
+        </div><!-- dropdown -->
+    </div><!-- navbar-right -->
+</header><!-- navbar -->
+
+<div class="content content-fixed col-xs-12">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">标签列表</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">编辑</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="col-12 inputInfo">
+            <div class="filterArea">
+                <div class="summaryAreaPart">
+                    <div class="_selection col-xs-12">
+                        <div class="col-xs-12 p-0">
+                            <div class="col-xs-9 inputInfo filterInput pl-0 mg-t-10">
+                                <input type="text" class="form-control" placeholder="请输入新标签名称">
+                            </div>
+                            <div class="col-xs-3 inputInfo filterInput pr-0 mg-t-10">
+                                <button type="submit" class="btn btn-sm btn-primary btn-uppercase pd-x-20">
+                                    <span>修改</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="_selection col-xs-12 d-sm-flex align-items-center justify-content-between mg-t-20 pl-0">
+                        <div>
+                            <nav aria-label="breadcrumb">
+                                <a href="#modalBillingInfo" data-toggle="modal"
+                                   class="outline-none btn btn-sm btn-primary btn-uppercase">
+                                    <i class="iconfont _class add">&#xe62e;</i>
+                                    <span>添加子标签</span>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 _selection inputInfo filterInput mt-3">
+                        <div class="col-xs-12 p-0">子标签列表</div>
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>逻辑推理能力</td>
+                                <td>
+                                    <button class="btn btn-sm btn-white btn-uppercase ">编辑</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>空间想象能力</td>
+                                <td>
+                                    <button class="btn btn-sm btn-white btn-uppercase ">编辑</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>可逆推理</td>
+                                <td>
+                                    <button class="btn btn-sm btn-white btn-uppercase ">编辑</button>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<!--筛选区域结束-->
+<!--上传、新建、删除-->
+
+</div><!-- container -->
+</div><!-- content -->
+
+
+<footer class="col-xs-12 footer">
+
+</footer>
+<div class="modal fade" id="modalBillingInfo" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <div class="media-body">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2">添加子标签</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-b-40 pd-sm-x-30">
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">子标签名称</label>
+                    <input type="text"  class="form-control" placeholder="子标签名称">
+                </div>
+
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+<script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../lib/feather-icons/feather.min.js"></script>
+<script src="../../assets/js/dashforge.js"></script>
+<script src="../../assets/js/dashforge.sampledata.js"></script>
+
+
+</body>
+</html>

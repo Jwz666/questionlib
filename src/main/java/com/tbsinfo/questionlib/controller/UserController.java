@@ -1,0 +1,33 @@
+package com.tbsinfo.questionlib.controller;
+
+import com.tbsinfo.questionlib.component.RetData;
+import com.tbsinfo.questionlib.model.UserInfo;
+import com.tbsinfo.questionlib.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author jayMamba
+ * @date 2019/9/25
+ * @time 15:02
+ * @desc
+ */
+@RestController
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/login")
+    public RetData login(@RequestBody UserInfo userInfo) {
+        return userService.login(userInfo);
+    }
+
+    @PostMapping("/addUser")
+    public RetData addUser(@RequestBody UserInfo userInfo) {
+        return userService.addUser(userInfo);
+    }
+}

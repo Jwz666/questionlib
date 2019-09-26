@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tbsinfo.questionlib.dao.TagsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tbsinfo.questionlib.model.Tags">
+        <id column="id" property="id" />
+        <result column="tag_name" property="tagName" />
+        <result column="difficult" property="difficult" />
+        <result column="tag_type" property="tagType" />
+        <result column="parent_id" property="parentId" />
+        <result column="creator_id" property="creatorId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+    </resultMap>
+
+</mapper>
