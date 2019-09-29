@@ -6,13 +6,14 @@ import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.component.TagsQuery;
 import com.tbsinfo.questionlib.model.Tags;
 import com.tbsinfo.questionlib.service.TagsService;
+import com.tbsinfo.questionlib.utils.GUID;
+import com.tbsinfo.questionlib.utils.RequestUtil;
+import com.tbsinfo.questionlib.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.Date;
 
 /**
  * <p>
@@ -48,11 +49,35 @@ public class TagsController {
     public RetData<String> updateTag(Tags tags){
         Integer status= tagsService.updateTag(tags);
         if (status==1){
-            return new RetData().success("编辑成功");
+
+            return new RetData().erro("200","编辑成功");
         }else{
             return new RetData().erro("500","编辑失败");
         }
+    }
 
+    @PostMapping("/readyToEdit")
+    public RetData readyToEdit(@RequestParam("id") String tagid){
+        Tags tag = getTagInfoById(tagid);
+
+        if (tag!=null)return new RetData().success("");
+        return new RetData().erro("500","");
+    }
+    @GetMapping("/getChildrenTags")
+    public RetData getChildrenTags(TagsQuery tagsQuery) {
+        //ModelAndView modelAndView=new ModelAndView("math-exe.html");
+        Page<Tags> page=new Page<>(tagsQuery.getPage(), tagsQuery.getSize());
+        //modelAndView.addObject("Questions", page);
+        return new RetData().success(tagsService.getChildrenTags(page,tagsQuery));
+    }
+    @PostMapping("/insertTags")
+    public RetData insertTags(Tags tag) {
+        //ModelAndView modelAndView=new ModelAndView("math-exe.html");
+        //modelAndView.addObject("Questions", page);
+        tag.setDifficult(0);//默认值
+        int status=tagsService.insertTags(tag);
+        if (status==1)return new RetData().erro("200","添加成功");
+        return new RetData().erro("500","添加失败");
     }
 
 }

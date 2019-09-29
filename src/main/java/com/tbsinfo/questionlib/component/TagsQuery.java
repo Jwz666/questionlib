@@ -7,4 +7,5 @@ public class TagsQuery extends BaseQuery {
     private Long id;
     private String tagType;
     private String tagName;
+    private Long parentId;
 }

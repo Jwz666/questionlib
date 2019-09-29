@@ -11,14 +11,14 @@ $(function () {
         success: function (data) {
             console.log(data);  //在控制台打印服务器端返回的数据
             if(data.code=='200') {
-                var tagList=data.body.records;
+               tagList=data.body.records;
                 if(tagList.length != 0) {
                     for(var i=0;i<tagList.length;i++) {
                         $("#tagList").append(
                             ' <tr id="'+tagList[i].id+'">\n' +
                             '     <td id="trTagName">'+tagList[i].tagName+'</td>\n' +
                             '     <td id="trTagType">'+tagType(tagList[i].tagType)+'</td>\n' +
-                            '     <td>'+i+1+'</td>\n' +
+                            '     <td></td>\n' +
                             '     <td>\n' +
                             '         <button class="btn btn-sm btn-primary btn-uppercase editTagsBtn">编辑</button>\n' +
                             '     </td>\n' +
@@ -37,12 +37,44 @@ $(function () {
         }
 
     });
+// 父标签插入
+    $("#insertParentTag").click(function () {
+
+        var  insertTag={};
+        insertTag.tagName=$("#insertParentTagName").val();
+        insertTag.tagType=$("#insertParentTagType").val();
+        insertTag.parentId=0;
+        $.ajax({
+            // async : false,    //表示请求是否异步处理
+            type : "post",    //请求类型
+            url : "/tags/insertTags",//请求的 URL地址
+            data: insertTag,
+            dataType : "json",//返回的数据类型
+            success: function (data) {
+                $("#insertModalBillingInfo").modal("hide")
+                console.log(data);  //在控制台打印服务器端返回的数据
+                if (data.code == '200') {
+                    $.alert({
+                        title: "提示",
+                        content: data.message,
+                        onClose: function () {
+                            window.location.reload();
+                        }
+                    })}
+                if (data.code == '500') {
+                    $.alert({
+                        title: "提示",
+                        content: data.message,
+                        onClose: function () {
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+        });
 
 
-    $('.select2').select2({
-        placeholder: '添加搜索标签',
-        maximumSelectionLength: 5,
-        allowClear: true
+
     });
 });
 
@@ -52,60 +84,67 @@ function tagType(tagType) {
     if (tagType==2){return "知识点";}
     if (tagType=="知识点"){return 2;}
 
-
 }
-
-
-updateTagId=null;
-
+// updateTagId=null;
 $("body").on('click','.editTagsBtn',function () {
-    thistr=$(this).parent().parent();
+    thistr = $(this).parent().parent();
     updateTagId = thistr.attr('id');
-    $("#updateTagName").val(thistr.find("#trTagName").text());
-    $("#updateTagType").val(tagType(thistr.find("#trTagType").text()));
-    $("#updateModalBillingInfo").modal("show")
-})
-
-$("body").on('click','#updateTag',function updateTag() {
-    var  updateTag={};
-    updateTag.id=updateTagId;
-    updateTag.tagName=$("#updateTagName").val();
-    updateTag.tagType=$("#updateTagType").val();
     $.ajax({
         // async : false,    //表示请求是否异步处理
-        type : "post",    //请求类型
-        url : "/tags/updateTag",//请求的 URL地址
-        data: updateTag,
-        dataType : "json",//返回的数据类型
+        type: "post",    //请求类型
+        url: "/tags/readyToEdit",//请求的 URL地址
+        data: {id:updateTagId},
+        dataType: "json",//返回的数据类型
         success: function (data) {
             console.log(data);  //在控制台打印服务器端返回的数据
             if (data.code == '200') {
-                $.alert({
-                    title: "",
-                    content: data.message,
-                    type: "green",
-                    onClose: function () {
-                        window.location.reload();
-                    }
-            })}
-            if (data.code == '500') {
-                $.alert({
-                    title: "",
-                    content: data.message,
-                    type: "red",
-                    onClose: function () {
-                        window.location.reload();
-                    }
-               });
+                window.location.href = "math-tagsedit.html?id="+updateTagId;
             }
         }
     });
+});
+$("#selectShowType").change(function() {
+    $("#tagList").empty();
+    if(tagList.length != 0) {
+        for(var i=0;i<tagList.length;i++) {
+            if(tagList[i].tagType==$(this).val()) {
+                $("#tagList").append(
+                    ' <tr id="' + tagList[i].id + '">\n' +
+                    '     <td id="trTagName">' + tagList[i].tagName + '</td>\n' +
+                    '     <td id="trTagType">' + tagType(tagList[i].tagType) + '</td>\n' +
+                    '     <td></td>\n' +
+                    '     <td>\n' +
+                    '         <button class="btn btn-sm btn-primary btn-uppercase editTagsBtn">编辑</button>\n' +
+                    '     </td>\n' +
+                    ' </tr>\n' +
+                    ' <tr>                                                                /n'
+                );
+            }
+            if ("all"==$(this).val()) {
+                $("#tagList").append(
+                    ' <tr id="' + tagList[i].id + '">\n' +
+                    '     <td id="trTagName">' + tagList[i].tagName + '</td>\n' +
+                    '     <td id="trTagType">' + tagType(tagList[i].tagType) + '</td>\n' +
+                    '     <td></td>\n' +
+                    '     <td>\n' +
+                    '         <button class="btn btn-sm btn-primary btn-uppercase editTagsBtn">编辑</button>\n' +
+                    '     </td>\n' +
+                    ' </tr>\n' +
+                    ' <tr>                                                                /n'
+                );
+            }
+        }
+    }
 })
+
+
+
+
+
+
 
    
 
-function add() {
-    window.location.href="math-exedit.html";
-}
+
 
 
