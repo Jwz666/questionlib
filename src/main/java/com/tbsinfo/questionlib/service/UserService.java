@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.model.UserInfo;
 
+import javax.servlet.http.HttpSession;
+
 
 /**
  * @author jayMamba
@@ -26,7 +28,7 @@ public interface UserService extends IService<UserInfo> {
      * @param userInfo
      * @return
      */
-    RetData login(UserInfo userInfo);
+    RetData login(UserInfo userInfo, HttpSession session);
 
     /**
      * 添加用户

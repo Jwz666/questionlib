@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author jayMamba
  * @date 2019/9/25
@@ -22,8 +24,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public RetData login(@RequestBody UserInfo userInfo) {
-        return userService.login(userInfo);
+    public RetData login(@RequestBody UserInfo userInfo, HttpSession session) {
+        return userService.login(userInfo,session);
     }
 
     @PostMapping("/addUser")

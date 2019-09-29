@@ -49,7 +49,7 @@ public class MybatisGenerator {
         StrategyConfig strategy = new StrategyConfig();
         // strategy.setTablePrefix(new String[] { "sys_" });// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "base_questions","tags","grades" }); // 需要生成的表
+        strategy.setInclude(new String[] { "quelib_question_type" }); // 需要生成的表
 
         strategy.setSuperServiceClass(null);
         strategy.setSuperServiceImplClass(null);
@@ -65,7 +65,7 @@ public class MybatisGenerator {
         pc.setServiceImpl("service.impl");
         pc.setMapper("dao");
         pc.setEntity("model");
-        pc.setXml("xml");
+       // pc.setXml("xml");
         mpg.setPackageInfo(pc);
 
         // 执行生成

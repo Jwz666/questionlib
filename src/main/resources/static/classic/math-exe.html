@@ -86,6 +86,18 @@
                 </div>
             </div>
         </div>
+        <nav aria-label="Page navigation example" style="overflow: hidden;">
+            <ul class="pagination mg-b-0 mg-t-30" style="float: right;">
+                <li class="item " onclick="lastPage()">
+                    <a class="page-link page-link-icon" href="#">
+                        <i data-feather="chevron-left"></i>
+                    </a>
+                </li>
+
+                <li class="item" id="nextPage" onclick="nextPage()"><a class="page-link page-link-icon" href="#"><i
+                        data-feather="chevron-right"></i></a></li>
+            </ul>
+        </nav>
     </div><!-- container -->
 </div><!-- content -->
 
@@ -119,6 +131,8 @@
                 <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary">保存</button>
             </div>
+
+
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div>
@@ -131,11 +145,30 @@
 <script src="../../assets/js/dashforge.sampledata.js"></script>
 <script src="../../assets/js/main.js"></script>
 <script src="../../lib/select2/js/select2.min.js"></script>
+
 <script>
     $(function () {
-        var pageInfo={};
-        pageInfo.page=1;
-        pageInfo.size=10;
+
+       getData();
+
+
+        $('.select2').select2({
+            placeholder: '添加搜索标签',
+            maximumSelectionLength: 5,
+            allowClear: true
+        });
+    });
+
+    totalPage = 0;
+    currentPageIndex=0;
+    function getData(pageInfo={}) {
+        if(pageInfo.page==null || pageInfo.page == undefined || pageInfo.page=='') {
+            pageInfo.page=1;
+            currentPageIndex=1;
+        }
+
+
+        pageInfo.size=20;
         $.ajax({
             // async : false,    //表示请求是否异步处理
             type : "get",    //请求类型
@@ -145,33 +178,45 @@
             success: function (data) {
                 console.log(data);  //在控制台打印服务器端返回的数据
                 if(data.code=='200') {
-                  var questionList=data.body.records;
-                  if(questionList.length != 0) {
-                      for(var i=0;i<questionList.length;i++) {
-                          $("#questionList").append(' <tr >\n' +
-                              '                                <td id="id">'+questionList[i].id+'</td>\n' +
-                              '                                <td >'+questionList[i].content+'</td>\n' +
-                              '                                <td>'+questionList[i].questionType+'</td>\n' +
-                              '                                <td>'+timeStamp2String(questionList[i].createdAt)+'</td>\n' +
-                              '                                <td  onclick="edit('+questionList[i].id+')">\n' +
-                              '                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"\n' +
-                              '                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"\n' +
-                              '                                         stroke-linejoin="round" class="feather feather-sliders wd-10 mg-r-5">\n' +
-                              '                                        <line x1="4" y1="21" x2="4" y2="14"></line>\n' +
-                              '                                        <line x1="4" y1="10" x2="4" y2="3"></line>\n' +
-                              '                                        <line x1="12" y1="21" x2="12" y2="12"></line>\n' +
-                              '                                        <line x1="12" y1="8" x2="12" y2="3"></line>\n' +
-                              '                                        <line x1="20" y1="21" x2="20" y2="16"></line>\n' +
-                              '                                        <line x1="20" y1="12" x2="20" y2="3"></line>\n' +
-                              '                                        <line x1="1" y1="14" x2="7" y2="14"></line>\n' +
-                              '                                        <line x1="9" y1="8" x2="15" y2="8"></line>\n' +
-                              '                                        <line x1="17" y1="16" x2="23" y2="16"></line>\n' +
-                              '                                    </svg>\n' +
-                              '                                </td>\n' +
-                              '                                <td><input type="checkbox"></td>\n' +
-                              '                            </tr>');
-                      }
-                  }
+                    var page=data.body;
+                    var questionList=data.body.records;
+                    if(questionList.length != 0) {
+                        for(var i=0;i<questionList.length;i++) {
+                            $("#questionList").append(' <tr >\n' +
+                                '                                <td >'+questionList[i].id+'</td>\n' +
+                                '                                <td >'+questionList[i].content+'</td>\n' +
+                                '                                <td>'+questionTypeFormatter(questionList[i].questionType)+'</td>\n' +
+                                '                                <td>'+timeStamp2String(questionList[i].createdAt)+'</td>\n' +
+                                '                                <td  onclick="edit('+questionList[i].id+')">\n' +
+                                '                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"\n' +
+                                '                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"\n' +
+                                '                                         stroke-linejoin="round" class="feather feather-sliders wd-10 mg-r-5">\n' +
+                                '                                        <line x1="4" y1="21" x2="4" y2="14"></line>\n' +
+                                '                                        <line x1="4" y1="10" x2="4" y2="3"></line>\n' +
+                                '                                        <line x1="12" y1="21" x2="12" y2="12"></line>\n' +
+                                '                                        <line x1="12" y1="8" x2="12" y2="3"></line>\n' +
+                                '                                        <line x1="20" y1="21" x2="20" y2="16"></line>\n' +
+                                '                                        <line x1="20" y1="12" x2="20" y2="3"></line>\n' +
+                                '                                        <line x1="1" y1="14" x2="7" y2="14"></line>\n' +
+                                '                                        <line x1="9" y1="8" x2="15" y2="8"></line>\n' +
+                                '                                        <line x1="17" y1="16" x2="23" y2="16"></line>\n' +
+                                '                                    </svg>\n' +
+                                '                                </td>\n' +
+                                '                                <td><input type="checkbox"></td>\n' +
+                                '                            </tr>');
+                        }
+                    }
+                    totalPage=page.pages;
+                    var showPage=totalPage;
+                    if(totalPage>3) {
+                        showPage=3;
+                    }
+                    $(".page-item").remove();
+                    for (i = 0; i < totalPage; i++) {
+                        var current = i + 1;
+                        $("#nextPage").before('<li class="page-item" data-id=' + current + '><a class="page-link" href="#" onclick="pageChange(this)">' + current + '</a></li>');
+
+                    }
                 }
                 if(data.code=='500') {
                     alert(data.message);
@@ -182,53 +227,60 @@
             }
 
         });
-
-
-        $('.select2').select2({
-            placeholder: '添加搜索标签',
-            maximumSelectionLength: 5,
-            allowClear: true
-        });
-    });
+    }
 
     function edit(id) {
         var  pageInfo={};
         pageInfo.page=1;
         pageInfo.size=10;
         pageInfo.id=id;
-        $.ajax({
-            // async : false,    //表示请求是否异步处理
-            type : "get",    //请求类型
-            url : "/baseQuestions/getQuestionByPage",//请求的 URL地址
-            data: pageInfo,
-            dataType : "json",//返回的数据类型
-            success: function (data) {
-                console.log(data);  //在控制台打印服务器端返回的数据
-                if (data.code == '200') {
-                    var questionList = data.body.records;
-                    if (questionList.length != 0) {
-                        var questionInfo=null;
-                        for (var i = 0; i < questionList.length; i++) {
-                            questionInfo = questionList[i];
-                        }
-                        console.log(questionInfo);
-                        var url="math-exedit.html?questionVal="+JSON.stringify(questionInfo);
-                        window.location.href = url;
-                    } else {
-                        alert("暂无数据");
-                    }
-                }
-                if (data.code == '500') {
-                    alert(data.message);
-                }
-            }
-    });
+        var url=encodeURI("math-exedit.html?questionId="+JSON.stringify(pageInfo));
+        window.location.href = url;
+
+
     }
     function add() {
         window.location.href="math-exedit.html";
     }
+    function pageChange(target) {
+        currentPageIndex=$(target).text();
+        console.log(currentPageIndex);
+        var pageInfo={};
+        pageInfo.page=currentPageIndex;
+        getData(pageInfo);
+        $("#questionList").empty();
 
-    
+    }
+
+    function nextPage() {
+       var nextPage=parseInt(currentPageIndex)+1;
+       console.log(nextPage);
+       if(nextPage>totalPage) {
+           return;
+       }
+       console.log(nextPage);
+        var pageInfo={};
+        pageInfo.page=nextPage;
+        getData(pageInfo);
+        $("#questionList").empty();
+
+    }
+    function lastPage() {
+
+        var lastPage=currentPageIndex-1;
+        console.log(lastPage);
+        if(lastPage<0) {
+            return;
+        }
+        console.log(lastPage);
+        var pageInfo={};
+        pageInfo.page=lastPage;
+        getData(pageInfo);
+        $("#questionList").empty();
+
+    }
+
+
 
 </script>
 

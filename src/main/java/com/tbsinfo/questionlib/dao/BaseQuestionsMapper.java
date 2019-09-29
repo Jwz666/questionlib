@@ -2,6 +2,9 @@ package com.tbsinfo.questionlib.dao;
 
 import com.tbsinfo.questionlib.model.BaseQuestions;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface BaseQuestionsMapper extends BaseMapper<BaseQuestions> {
 
+    @Select("SELECT question_type FROM `quelib_base_questions` GROUP BY question_type")
+    List<String> getQuestionType();
 }

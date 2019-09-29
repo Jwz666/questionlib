@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../assets/css/dashforge.css">
     <link rel="stylesheet" href="../../assets/css/dashforge.dashboard.css">
     <link rel="stylesheet" href="../../assets/css/auth.css">
+    <link rel="stylesheet" href="../../assets/css/datepicker.css">
 </head>
 
 <body class="page-profile">
@@ -42,8 +43,8 @@
             <div>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                        <li class="breadcrumb-item"><a href="#">题库管理</a></li>
-                        <li class="breadcrumb-item"><a href="#">题目列表</a></li>
+                        <li class="breadcrumb-item"><a href="math-index.html">题库管理</a></li>
+                        <li class="breadcrumb-item"><a href="math-exe.html">题目列表</a></li>
                         <li class="breadcrumb-item active" aria-current="page">题目编辑</li>
                     </ol>
                 </nav>
@@ -53,87 +54,80 @@
             <!--筛选区域开始-->
             <div class="filterArea">
                 <div class="summaryAreaPart">
+                    <label for="">题目编号</label>
+                    <input id="id" disabled="disabled"/>
                     <div class="col-xs-12 _selection inputInfo filterInput">
                         <label for="">题干编辑</label>
-                        <textarea class="form-control" rows="3"></textarea>
+                        <!--<textarea id="content" class="form-control" rows="3"></textarea>-->
+                        <textarea name="content" id="content" rows="10" cols="80"></textarea>
+
+
+
                     </div>
+
                     <div class="_selection col-xs-12">
                         <div class="col-xs-12 p-0">
                             <div class="col-xs-6 inputInfo filterInput pl-0">
                                 <label for="">题目类型</label>
-                                <select id="" name="" class="form-control">
-                                    <option value="a">a</option>
-                                    <option value="b">b</option>
-                                    <option value="c">c</option>
-                                    <option value="d">d</option>
-                                    <option value="c">e</option>
-                                    <option value="d">f</option>
+                                <select id="type" name="" class="form-control">
+
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 _selection inputInfo filterInput mt-3">
-                        <div class="col-xs-12 p-0">
-                            <div class="col-xs-10 pl-0">选项值</div>
-                            <div class="col-xs-2 ">
-                                <a href="#modalBillingInfo" data-toggle="modal" class="outline-none btn btn-sm btn-primary btn-uppercase">添加</a>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 p-0">
-                            <div class="col-xs-4 pl-0">选项名称</div>
-                            <div class="col-xs-6 pl-0">选项值</div>
-                            <div class="col-xs-2">操作</div>
-                        </div>
-                        <div class="col-xs-12 p-0 mb-2">
-                            <div class="col-xs-4 pl-0"><input type="text" class="form-control"></div>
-                            <div class="col-xs-6 pl-0"><input type="text" class="form-control"></div>
-                            <div class="col-xs-2"><p class="btn btn-sm btn-white btn-uppercase liH-19 pd-x-20">
-                                删除</p></div>
-                        </div>
-                        <div class="col-xs-12 p-0 mb-2">
-                            <div class="col-xs-4 pl-0"><input type="text" class="form-control"></div>
-                            <div class="col-xs-6 pl-0"><input type="text" class="form-control"></div>
-                            <div class="col-xs-2"><p class="btn btn-sm btn-white btn-uppercase liH-19 pd-x-20">
-                                删除</p></div>
-                        </div>
-                    </div>
+                    <!--<div class="col-xs-12 _selection inputInfo filterInput mt-3" id="optionTable" >-->
+                        <!--<div class="col-xs-12 p-0">-->
+                            <!--<div class="col-xs-10 pl-0">选项值</div>-->
+                            <!--<div class="col-xs-2 ">-->
+                                <!--<a href="#modalBillingInfo" data-toggle="modal" class="outline-none btn btn-sm btn-primary btn-uppercase">添加</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-12 p-0" id="options">-->
+                            <!--<div class="col-xs-4 pl-0">选项名称</div>-->
+                            <!--<div class="col-xs-6 pl-0">选项值</div>-->
+                            <!--<div class="col-xs-2">操作</div>-->
+                        <!--</div>-->
+
+                        <!--<div id="ops"></div>-->
+                    <!--</div>-->
                     <div class="col-xs-12 _selection">
                         <label>答案</label>
-                        <div class="col-xs-12 p-0">
-                            <div class="col-xs-3">
-                                <div class="pretty primary smooth"><input id="ii" type="checkbox"
-                                                                          name="edit_UserclassifiesList"
-                                                                          value="Organization_Add"><label for="ii"><i
-                                        class="mdi iconfont"> </i><span class="pd-x-20">A</span></label></div>
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="pretty primary smooth"><input type="checkbox" name="edit_UserclassifiesList"
-                                                                          value="Organization_Delete"><label><i
-                                        class="mdi iconfont"> </i><span class="pd-x-20">B</span></label></div>
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="pretty primary smooth"><input type="checkbox" name="edit_UserclassifiesList"
-                                                                          value="Organization_Edit"><label><i
-                                        class="mdi iconfont"> </i><span class="pd-x-20">C</span></label></div>
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="pretty primary smooth"><input type="checkbox" name="edit_UserclassifiesList"
-                                                                          value="Organization_Find"><label><i
-                                        class="mdi iconfont"> </i><span class="pd-x-20">D</span></label></div>
-                            </div>
-                        </div>
+                        <div class="col-xs-12 p-0" >
+                            <textarea id="answer" class="form-control" rows="10" cols="80"></textarea>
+                            <!--<div class="col-xs-3">-->
+                                <!--<div class="pretty primary smooth"><input id="ii" type="checkbox"-->
+                                                                          <!--name="edit_UserclassifiesList"-->
+                                                                          <!--value="Organization_Add"><label for="ii"><i-->
+                                        <!--class="mdi iconfont"> </i><span class="pd-x-20">A</span></label></div>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-3">-->
+                                <!--<div class="pretty primary smooth"><input type="checkbox" name="edit_UserclassifiesList"-->
+                                                                          <!--value="Organization_Delete"><label><i-->
+                                        <!--class="mdi iconfont"> </i><span class="pd-x-20">B</span></label></div>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-3">-->
+                                <!--<div class="pretty primary smooth"><input type="checkbox" name="edit_UserclassifiesList"-->
+                                                                          <!--value="Organization_Edit"><label><i-->
+                                        <!--class="mdi iconfont"> </i><span class="pd-x-20">C</span></label></div>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-3">-->
+                                <!--<div class="pretty primary smooth"><input type="checkbox" name="edit_UserclassifiesList"-->
+                                                                          <!--value="Organization_Find"><label><i-->
+                                        <!--class="mdi iconfont"> </i><span class="pd-x-20">D</span></label></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
-                    <div class="_selection col-xs-12">
-                        <div class="col-xs-12 p-0">
-                            <div class="col-xs-6 inputInfo filterInput pl-0">
-                                <label for="">考点</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                    </div>
+                    <!--<div class="_selection col-xs-12">-->
+                        <!--<div class="col-xs-12 p-0">-->
+                            <!--<div class="col-xs-6 inputInfo filterInput pl-0">-->
+                                <!--<label for="">考点</label>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="col-xs-12 _selection inputInfo filterInput">
                         <label for="">解析</label>
-                        <textarea class="form-control" rows="10"></textarea>
+                        <textarea id="analyis" class="form-control" rows="10" cols="80"></textarea>
                     </div>
                     <div class="_selection col-xs-12">
                         <div class="col-xs-12 p-0">
@@ -150,12 +144,7 @@
                             </div>
                             <div class="col-xs-6 inputInfo filterInput pr-0">
                                 <label for="">年份</label>
-                                <select id="" name="" class="form-control">
-                                    <option value="a">2019</option>
-                                    <option value="b">2018</option>
-                                    <option value="c">2017</option>
-                                    <option value="d">2016</option>
-                                </select>
+                                <input type="text" class="form-control" id="years"/>
                             </div>
                         </div>
                     </div>
@@ -234,8 +223,8 @@
                                 </button>
                             </div>
                             <div class="col-xs-3 inputInfo filterInput pr-0">
-                                <button class="btn btn-sm pd-x-100 btn-primary btn-uppercase mg-l-5">
-                                    <i data-feather="upload" class="wd-10 mg-r-5"></i> 提交
+                                <button class="btn btn-sm pd-x-100 btn-primary btn-uppercase mg-l-5" onclick="addOrEdit()">
+                                    <i data-feather="upload" class="wd-10 mg-r-5" ></i> 提交
                                 </button>
                             </div>
                         </div>
@@ -397,7 +386,7 @@
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" >保存</button>
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
@@ -408,26 +397,158 @@
 <script src="../../lib/feather-icons/feather.min.js"></script>
 <script src="../../assets/js/dashforge.js"></script>
 <script src="../../assets/js/dashforge.sampledata.js"></script>
-
+<script src="../../assets/ckeditor/ckeditor.js"></script>
+<script src="../../assets/js/datepicker.js"></script>
 <script>
     $(function(){
+        getQuestionType();
         getData();
+        CKEDITOR.replace( 'content' );
+        CKEDITOR.replace( 'answer' );
+        CKEDITOR.replace( 'analyis' );
     });
 
 
     function getData(){
 
         var questionInfo = window.location.href;
-        var twodata = questionInfo.split("="); //截取 url中的“=”,获得“=”后面的参数
-        var twoText = decodeURI(twodata[1]); //decodeURI解码
+        console.log('index of ='+questionInfo.indexOf("="));
+        if(questionInfo.indexOf("=")!= -1) {
+            var twodata = questionInfo.split("="); //截取 url中的“=”,获得“=”后面的参数
+            var data = decodeURI(twodata[1]); //decodeURI解码
+            var jsonData=JSON.parse(data);
+            console.log(jsonData.id);
+            dataToTable(jsonData);
+        }
 
-        // $('#name').text(name);
-        // $('#age').text(age);
+    }
 
+    function dataToTable(data) {
+        console.log("in data to table");
+        console.log(data);
+        $("#id").val(data.id);
+        $.ajax({
+            // async : false,    //表示请求是否异步处理
+            type : "get",    //请求类型
+            url : "/baseQuestions/getQuestionList",//请求的 URL地址
+            data: data,
+            dataType : "json",//返回的数据类型
+            success: function (data) {
+                console.log(data);  //在控制台打印服务器端返回的数据
+                if (data.code == '200') {
+                    var questionList = data.body;
+                    if (questionList.length != 0) {
+                        var questionInfo=null;
+                        for (var i = 0; i < questionList.length; i++) {
+                            questionInfo = questionList[i];
+                        }
+
+                        $("#content").text(questionInfo.content);
+                        $("#type").val(questionInfo.questionType);
+                        $("#answer").val(questionInfo.answer);
+                        $("#analyis").text(questionInfo.analysis);
+                        $("#years").val(questionInfo.questionDesignTime);
+                    } else {
+                        alert("暂无数据");
+                    }
+                }
+                if (data.code == '500') {
+                    alert(data.message);
+                }
+            }
+        });
+
+    }
+
+    function getQuestionType() {
+        $.ajax({
+            // async : false,    //表示请求是否异步处理
+            type : "get",    //请求类型
+            url : "/baseQuestions/getQuestionType",//请求的 URL地址
+            dataType : "json",//返回的数据类型
+            success: function (data) {
+                console.log(data);  //在控制台打印服务器端返回的数据
+                if (data.code == '200') {
+                   var types=data.body;
+                    if(types.length != 0) {
+                        for (var i = 0; i < types.length; i++) {
+
+                            $("#type").append(' <option value='+types[i].questionTypeCode+'>'+types[i].questionTypeName+'</option>');
+                        }
+                    }
+                }
+                if (data.code == '500') {
+                    alert(data.message);
+                }
+            }
+        });
 
 
     }
 
+    function addOrEdit() {
+        var questionInfo={};
+        questionInfo.id=$('#id').val();
+        questionInfo.content=CKEDITOR.instances.content.getData();
+        questionInfo.questionType=$("#type").val();
+        //questionInfo.optionList=
+        questionInfo.answer=CKEDITOR.instances.answer.getData();
+        questionInfo.analysis=CKEDITOR.instances.analyis.getData();
+        questionInfo.questionDesignTime=$("#years").val();
+        console.log(questionInfo);
+        var flag=vaild(questionInfo);
+        if(!flag) {
+            return;
+        }
+        //questionDesignTime
+        $.ajax({
+            // async : false,    //表示请求是否异步处理
+            type : "post",    //请求类型
+            url : "/baseQuestions/addOrUpdateQuestion",
+            contentType: 'application/json',//请求的 URL地址
+            data:JSON.stringify(questionInfo),
+            dataType : "json",//返回的数据类型
+            success: function (data) {
+                console.log(data);  //在控制台打印服务器端返回的数据
+                if (data.code == '200') {
+                    alert("操作成功");
+                    window.location.href="math-exe.html";
+                }
+                if (data.code == '500') {
+                    alert(data.message);
+                }
+            }
+        });
+    }
+    function answerVisable() {
+      var type = $("#type option:selected").val();
+      if(type != "1") {
+          $("#optionTable").hide();
+      } else {
+          $("#optionTable").show();
+      }
+
+    }
+
+    function vaild(questionInfo) {
+        if(questionInfo.content==null || questionInfo.content=='') {
+            alert("请添加题干内容");
+            return false;
+        }
+        if(questionInfo.answer==null || questionInfo.answer=='') {
+            alert("请添加答案内容");
+            return false;
+        }
+        return true;
+    }
+    $('#years').datepicker({
+        startView: 2,
+        minViewMode: 2,
+        maxViewMode: 2,
+        language: "zh-CN",
+        format:"yyyy",
+        autoclose: true
+    });
 
 </script>
 

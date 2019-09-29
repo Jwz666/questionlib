@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.model.BaseQuestions;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tbsinfo.questionlib.model.QuelibQuestionType;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +19,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BaseQuestionsService extends IService<BaseQuestions> {
 
-    IPage<BaseQuestions> getQuestionList(Page<BaseQuestions> page);
+    IPage<BaseQuestions> getQuestionList(Page<BaseQuestions> page,BaseQuestions baseQuestions);
+
+    List<BaseQuestions> getQuestionList(BaseQuestions baseQuestions);
+
+    List<QuelibQuestionType> getQuestionTypeList();
+
+
 }
