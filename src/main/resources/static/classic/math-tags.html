@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../../assets/css/auth.css">
 
 </head>
-<body class="page-profile">
+< class="page-profile">
 <header class="navbar navbar-header navbar-header-fixed">
     <div class="navbar-brand">
         <img src="../../assets/img/TBS%20logo.png" alt="">
@@ -39,7 +39,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
             <div>
                 <nav aria-label="breadcrumb">
-                    <a href="#modalBillingInfo" data-toggle="modal" class="outline-none btn btn-sm btn-primary btn-uppercase">
+                    <a href="#addModalBillingInfo" data-toggle="modal" class="outline-none btn btn-sm btn-primary btn-uppercase">
                         <i class="iconfont _class add">&#xe62e;</i>
                         <span>新增</span>
                     </a>
@@ -55,79 +55,9 @@
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>逻辑推理能力</td>
-                <td>能力点</td>
-                <td>1</td>
-                <td>
-                    <button class="btn btn-sm btn-primary btn-uppercase ">编辑</button>
-                </td>
-            </tr>
-            <tr>
-                <td>空间想象能力</td>
-                <td>能力点</td>
-                <td>2</td>
-                <td>
-                    <button class="btn btn-sm btn-primary btn-uppercase ">编辑</button>
-                </td>
-            </tr>
-            <tr>
-                <td>可逆推理</td>
-                <td>知识点</td>
-                <td>3</td>
-                <td>
-                    <button class="btn btn-sm btn-primary btn-uppercase ">编辑</button>
-                </td>
-            </tr>
-            <tr>
-                <td>几何元素的位置关系</td>
-                <td>知识点</td>
-                <td>4</td>
-                <td>
-                    <button class="btn btn-sm btn-primary btn-uppercase ">编辑</button>
-                </td>
-            </tr>
-            <tr>
-                <td>识图</td>
-                <td>知识点</td>
-                <td>5</td>
-                <td>
-                    <button class="btn btn-sm btn-primary btn-uppercase ">编辑</button>
-                </td>
-            </tr>
-            <tr>
-                <td>运算能力</td>
-                <td>能力点</td>
-                <td>6</td>
-                <td>
-                    <button class="btn btn-sm btn-primary btn-uppercase ">编辑</button>
-                </td>
-            </tr>
-            <tr>
-                <td>类比推理</td>
-                <td>知识点</td>
-                <td>7</td>
-                <td>
-                    <button class="btn btn-sm btn-primary btn-uppercase ">编辑</button>
-                </td>
-            </tr>
-            <tr>
-                <td>转化与创造能力</td>
-                <td>能力点</td>
-                <td>8</td>
-                <td>
-                    <button class="btn btn-sm btn-primary btn-uppercase ">编辑</button>
-                </td>
-            </tr>
-            <tr>
-                <td>数形结合</td>
-                <td>知识点</td>
-                <td>9</td>
-                <td>
-                    <button class="btn btn-sm btn-primary btn-uppercase ">编辑</button>
-                </td>
-            </tr>
+            <tbody id="tagList">
+
+             <!-- 标签显示的位置 -->
 
             </tbody>
 
@@ -135,7 +65,7 @@
     </div><!-- container -->
 </div><!-- content -->
 
-<div class="modal fade" id="modalBillingInfo" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="addModalBillingInfo" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
         <div class="modal-content">
             <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
@@ -158,14 +88,52 @@
                 <div class="form-group">
                     <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">标签类型</label>
                     <select name="" class="form-control">
-                        <option value="">能力点</option>
-                        <option value="">知识点</option>
+                        <option value="1">能力点</option>
+                        <option value="2">知识点</option>
                     </select>
                 </div>
             </div><!-- modal-body -->
+
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" id="addTag">保存</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+
+<div class="modal fade" id="updateModalBillingInfo" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <div class="media-body">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2">修改标签</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-b-40 pd-sm-x-30">
+
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">标签名称</label>
+                    <input id="updateTagName" type="tag-name" class="form-control" placeholder="请输入标签名称">
+                </div>
+
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">标签类型</label>
+                    <select name="" id="updateTagType" class="form-control">
+                        <option value="1">能力点</option>
+                        <option value="2">知识点</option>
+                    </select>
+                </div>
+            </div><!-- modal-body -->
+
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="updateTag">保存</button>
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
@@ -179,9 +147,9 @@
 <script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../../lib/feather-icons/feather.min.js"></script>
 <script src="../../lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="../../lib/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="../../assets/js/dashforge.js"></script>
 <script src="../../assets/js/dashforge.sampledata.js"></script>
-
-
+<script src="../../assets/js/tags.js"></script>
 </body>
 </html>

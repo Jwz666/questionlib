@@ -9,9 +9,8 @@ import lombok.Data;
  * @desc
  */
 @Data
-public class QuestionQuery {
-    private int page;
-    private int size;
+public class QuestionQuery extends BaseQuery{
+
 
     /**
      * 题目id

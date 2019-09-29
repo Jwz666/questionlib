@@ -1,5 +1,7 @@
 package com.tbsinfo.questionlib.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tbsinfo.questionlib.model.Tags;
 import com.tbsinfo.questionlib.dao.TagsMapper;
 import com.tbsinfo.questionlib.service.TagsService;
@@ -24,5 +26,16 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements Ta
     @Override
     public Tags getTagInfoById(int id) {
         return tagsMapper.selectById(id);
+    }
+    @Override
+    public IPage<Tags> getTagsList(Page<Tags> page){
+        return tagsMapper.selectPage(page,null);
+
+    }
+
+    @Override
+    public Integer updateTag(Tags tags) {
+        return tagsMapper.updateById(tags);
+
     }
 }
