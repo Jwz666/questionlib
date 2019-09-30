@@ -4,6 +4,8 @@ package com.tbsinfo.questionlib.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.component.TagsQuery;
+import com.tbsinfo.questionlib.model.GradesTags;
+import com.tbsinfo.questionlib.model.QuestionTags;
 import com.tbsinfo.questionlib.model.Tags;
 import com.tbsinfo.questionlib.service.TagsService;
 import com.tbsinfo.questionlib.utils.GUID;
@@ -14,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -72,6 +75,24 @@ public class TagsController {
         int status=tagsService.insertTags(tag);
         if (status==1)return new RetData().erro("200","添加成功");
         return new RetData().erro("500","添加失败");
+    }
+    @GetMapping("/getTagsByTypeAndParentId")
+    public RetData getTagsByType(@RequestParam("tagType") String tagType,@RequestParam("parentId") String parentId) {
+        List<Tags> tagsByType = tagsService.getTagsByTypeAndParentId(tagType,parentId);
+        return new RetData().success(tagsByType);
+    }
+
+    @PostMapping("/insertGradesTags")
+    public RetData insertGradesTags(GradesTags gt) {
+        int status=tagsService.insertGradesTags(gt);
+       if(status==1) return new RetData().success("");
+       return new RetData().erro("500","保存失败");
+    }
+    @PostMapping("/insertQuestionsTags")
+    public RetData insertQuestionsTags(QuestionTags qt) {
+        int status=tagsService.insertQuestionsTags(qt);
+        if(status==1) return new RetData().success("");
+        return new RetData().erro("500","保存失败");
     }
 
 }

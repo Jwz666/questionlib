@@ -7,11 +7,14 @@ import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.model.Grades;
 import com.tbsinfo.questionlib.model.Tags;
 import com.tbsinfo.questionlib.service.GradesService;
+import com.tbsinfo.questionlib.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 /**
  * <p>
@@ -26,6 +29,8 @@ import org.springframework.stereotype.Controller;
 public class GradesController {
     @Autowired
     GradesService gradesService;
+    @Autowired
+    TagsService tagsService;
 
     @GetMapping("/getGradesByPage")
     public RetData getGradesByPage(GradesQuery gradesQuery) {
@@ -42,8 +47,8 @@ public class GradesController {
         if (grades!=null)return new RetData().success("");
         return new RetData().erro("500","");
     }
-    @GetMapping("/getGradesInfoById")
-    public Grades getGradesInfoById(String gradeid) {
+    @GetMapping("/getGradeInfoById")
+    public Grades getGradesInfoById(@RequestParam("id")String gradeid) {
         if(StringUtils.isEmpty(gradeid)) {
             return null;
         }
@@ -53,8 +58,14 @@ public class GradesController {
     @GetMapping("/getTagsByGradesId")
     public RetData getTagsFromGradesTags(@RequestParam("id") String id) {
 
-        Page<Tags> page= gradesService.getTagsByGradesId(Integer.parseInt(id));
+        List<Tags> page= tagsService.getTagsByGradesId(Integer.parseInt(id));
         return new RetData().success(page);
+    }
+    @PostMapping("/deleteGradesTag")
+    public  RetData deleteGradesTag(@RequestParam("gradesId")String gradesId,@RequestParam("tagsId")String tagsId){
+        Integer status= tagsService.deleteGradesTagRelation(gradesId,tagsId);
+          if (status==1)  return new RetData().success("删除成功") ;
+          return new RetData().erro("500","删除失败");
     }
 }
 

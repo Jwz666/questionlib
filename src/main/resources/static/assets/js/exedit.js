@@ -1,26 +1,12 @@
 var editId;
 var editTags;
 $(function () {
-    editId=getQueryVariable("id");
-    $.ajax({
-        async : false,    //表示请求是否异步处理
-        type : "get",    //请求类型
-        url : "/grades/getGradeInfoById",//请求的 URL地址
-        data: {id:editId},
-        dataType : "json",//返回的数据类型
-        success: function (data) {
-            console.log(data);  //在控制台打印服务器端返回的数据
-            $("#editTagsName").val(data.tagName);
-            editTags=data;
-            //子标签刷新
+    var data={}
+    data.id=$('#id').val();
+    editId=data.id;
+    editTags=data;
             showDepend(data)
 
-        },
-        error:function (data) {
-            alert("请刷新重试");
-        }
-
-    });
     //得到全部能力点标签
 });
 //得到子标签列表
@@ -30,7 +16,7 @@ function showDepend(parentdata) {
     $.ajax({
         async : false,    //表示请求是否异步处理
         type : "get",    //请求类型
-        url : "/grades/getTagsByGradesId",//请求的 URL地址
+        url : "/baseQuestions/getTagsByQuestionId",//请求的 URL地址
         data:{id:parentdata.id} ,
         dataType : "json",//返回的数据类型
         success: function (data) {
@@ -40,12 +26,12 @@ function showDepend(parentdata) {
                 if(tagList.length != 0) {
                     for(var i=0;i<tagList.length;i++) {
                         if (tagList[i].tagType==1){
-                             $("#abilityTag").append(
-                                  '<span class="_tags" id="'+tagList[i].id+'">'+tagList[i].tagName+' <i class="_tagsDelBtn">✖</i></span>'
-                        );}
+                            $("#abilityTag").append(
+                                '<span class="_tags" id="'+tagList[i].id+'">'+tagList[i].tagName+' <i class="_tagsDelBtn">✖</i></span>'
+                            );}
                         if (tagList[i].tagType==2){
                             $("#intelligenceTag").append(
-                                  '<span class="_tags" id="'+tagList[i].id+'">'+tagList[i].tagName+' <i class="_tagsDelBtn">✖</i></span>'
+                                '<span class="_tags" id="'+tagList[i].id+'">'+tagList[i].tagName+' <i class="_tagsDelBtn">✖</i></span>'
                             );
                         }
                     }
@@ -58,8 +44,7 @@ function showDepend(parentdata) {
         }
 
     });
-    //得到根据tagType以及是否有parent得到tagList
-    //能力
+
     $.ajax({
         async : false,    //表示请求是否异步处理
         type : "get",    //请求类型
@@ -105,7 +90,6 @@ function showDepend(parentdata) {
                             $("#coreIntelligence").append(
                                 '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
                             );}
-                        $("#coreIntelligence").trigger('change');
                     }
                     $("#coreIntelligence").trigger('change');
                 }
@@ -134,9 +118,9 @@ $("body").on('change','#coreAbility',function () {
                 var tagList=data.body;
                 if(tagList.length != 0) {
                     for(var i=0;i<tagList.length;i++) {
-                            $("#otherAbility").append(
-                                '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
-                            );
+                        $("#otherAbility").append(
+                            '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
+                        );
 
                     }
                 }
@@ -189,11 +173,11 @@ $("body").on('click','._tagsDelBtn',function () {
         return false;
     }
     var tagsId=$(this).parent().attr("id");
- //要删除的grade的id是 editid
+    //要删除的grade的id是 editid
     $.ajax({
         async : false,    //表示请求是否异步处理
         type : "post",    //请求类型
-        url : "/grades/deleteGradesTag",//请求的 URL地址
+        url : "/baseQuestions/deleteQuestionsTag",//请求的 URL地址
         data:{gradesId:editId,tagsId:tagsId} ,
         dataType : "json",//返回的数据类型
         success: function (data) {
@@ -215,13 +199,13 @@ $("#saveIntelligence").click(function () {
     appendDependcy( $("#otherIntelligence").val())
 })
 function appendDependcy(tagid) {
-   var GradesTags={};
-    GradesTags.gradeId=editId;
-    GradesTags.tagId=tagid
+    var GradesTags={};
+    GradesTags.questionId=editId;
+    GradesTags.tagId=tagid;
     $.ajax({
         // async : false,    //表示请求是否异步处理
         type : "post",    //请求类型
-        url : "/tags/insertGradesTags",//请求的 URL地址
+        url : "/tags/insertQuestionsTags",//请求的 URL地址
         data: GradesTags,
         dataType : "json",//返回的数据类型
         success: function (data) {

@@ -8,12 +8,15 @@ import com.tbsinfo.questionlib.component.QuestionQuery;
 import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.dao.QuestionTagsMapper;
 import com.tbsinfo.questionlib.model.BaseQuestions;
+import com.tbsinfo.questionlib.model.Tags;
 import com.tbsinfo.questionlib.service.BaseQuestionsService;
+import com.tbsinfo.questionlib.service.TagsService;
 import com.tbsinfo.questionlib.utils.HTMLUntil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -29,6 +32,8 @@ public class BaseQuestionsController {
 
     @Autowired
     private BaseQuestionsService questionsService;
+    @Autowired
+    TagsService tagsService;
 
 
     @GetMapping("/getQuestionByPage")
@@ -78,6 +83,18 @@ public class BaseQuestionsController {
     @PostMapping("/addTagsToQuestion")
     public RetData addTagsToQuestion(@RequestBody AddTagsQuery addTagsQuery) {
         return questionsService.addTags(addTagsQuery.getQuestionId(),addTagsQuery.getTagsList());
+    }
+    @PostMapping("/deleteQuestionsTag")
+    public  RetData deleteQuestionsTag(@RequestParam("gradesId")String questionsId,@RequestParam("tagsId")String tagsId){
+        Integer status= tagsService.deleteQuestionsTagRelation(questionsId,tagsId);
+        if (status==1)  return new RetData().success("删除成功") ;
+        return new RetData().erro("500","删除失败");
+    }
+    @GetMapping("/getTagsByQuestionId")
+    public RetData getTagsByQuestionId(@RequestParam("id") String id) {
+
+        List<Tags> page= tagsService.getTagsByQuestionId(Integer.parseInt(id));
+        return new RetData().success(page);
     }
 
 }
