@@ -3,6 +3,7 @@ package com.tbsinfo.questionlib.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.component.TagsQuery;
 import com.tbsinfo.questionlib.model.Tags;
 import com.tbsinfo.questionlib.dao.TagsMapper;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -59,5 +61,12 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements Ta
         tag.setCreatedAt(new Date());
         tag.setId((long)(tagsMapper.selectCount(null)+1));
         return tagsMapper.insert(tag);
+    }
+
+    @Override
+    public List<Tags> getTagsInfo(Tags tags) {
+        QueryWrapper<Tags> wrapper=new QueryWrapper<Tags>();
+        wrapper.setEntity(tags);
+        return tagsMapper.selectList(wrapper);
     }
 }

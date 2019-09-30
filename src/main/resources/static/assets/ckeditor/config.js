@@ -40,5 +40,5 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.filebrowserUploadUrl="/file/upload";
 
-
+	config.removePlugins = 'easyimage,cloudservices';
 };

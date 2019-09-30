@@ -6,6 +6,8 @@ import com.tbsinfo.questionlib.component.TagsQuery;
 import com.tbsinfo.questionlib.model.Tags;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 标签表 服务类
@@ -25,4 +27,6 @@ public interface TagsService extends IService<Tags> {
     IPage<Tags> getChildrenTags(Page<Tags> page, TagsQuery tagsQuery);
 
     Integer insertTags(Tags tag);
+
+    List<Tags> getTagsInfo(Tags tags);
 }

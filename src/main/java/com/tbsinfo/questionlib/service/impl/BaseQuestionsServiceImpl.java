@@ -66,7 +66,7 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
     @Override
     public List<Tags> getTagsByQuestionId(Long id) {
         List<Tags> tagsList=questionTagsMapper.getTagsByQuestionId(id);
-        return getTagTree(tagsList);
+        return tagsList;
     }
 
     private List<Tags> getTagTree(List<Tags> tags) {
@@ -119,6 +119,23 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
         }
 
 
+    }
+
+    @Override
+    public RetData addTags(QuestionTags questionTags) {
+        int i=questionTagsMapper.insert(questionTags);
+        if(i>0) {
+            return new RetData().success(null);
+        }
+        return new RetData().erro("500", "发生未知错误，请稍后重试");
+    }
+
+    @Override
+    public RetData deleteTags(QuestionTags questionTags) {
+        QueryWrapper<QuestionTags> wrapper=new QueryWrapper<>();
+        wrapper.setEntity(questionTags);
+        questionTagsMapper.delete(wrapper);
+        return new RetData().success(null);
     }
 
 }

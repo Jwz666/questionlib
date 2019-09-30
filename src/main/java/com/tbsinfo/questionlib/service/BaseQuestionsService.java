@@ -31,4 +31,8 @@ public interface BaseQuestionsService extends IService<BaseQuestions> {
 
     RetData addTags(Long questionId,List<Long> tagsList);
 
+    RetData addTags(QuestionTags questionTags);
+
+    RetData deleteTags(QuestionTags questionTags);
+
 }

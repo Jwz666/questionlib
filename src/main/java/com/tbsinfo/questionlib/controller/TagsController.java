@@ -80,5 +80,16 @@ public class TagsController {
         return new RetData().erro("500","添加失败");
     }
 
+
+    /**
+     * 条件获取标签信息
+     * @param tags
+     * @return
+     */
+    @GetMapping("/getTagsInfo")
+    public RetData getTagsInfo(Tags tags) {
+        return new RetData().success(tagsService.getTagsInfo(tags));
+    }
+
 }
 
