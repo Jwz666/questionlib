@@ -1,3 +1,4 @@
+var editId;
 $(function () {
     editId=getQueryVariable("id");
     $.ajax({
@@ -30,7 +31,7 @@ function showChildrenTags(parentdata) {
     $.ajax({
         async : false,    //表示请求是否异步处理
         type : "get",    //请求类型
-        url : "/tags/getChildrenTags",//请求的 URL地址
+        url : "/tags/getTagsByPage",//请求的 URL地址
         data: pageinfo,
         dataType : "json",//返回的数据类型
         success: function (data) {

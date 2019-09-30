@@ -18,11 +18,10 @@ public interface TagsService extends IService<Tags> {
 
     Tags getTagInfoById(int id);
 
-    IPage<Tags> getTagsList(Page<Tags> page);
+    IPage<Tags> getTagsList(Page<Tags> page, TagsQuery tagsQuery);
 
     Integer updateTag(Tags tags);
 
-    IPage<Tags> getChildrenTags(Page<Tags> page, TagsQuery tagsQuery);
 
     Integer insertTags(Tags tag);
 }

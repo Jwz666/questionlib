@@ -34,8 +34,11 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements Ta
         return tagsMapper.selectById(id);
     }
     @Override
-    public IPage<Tags> getTagsList(Page<Tags> page){
-        return tagsMapper.selectPage(page,null);
+    public IPage<Tags> getTagsList(Page<Tags> page , TagsQuery tagsQuery){
+        QueryWrapper<Tags> queryWrapper=new QueryWrapper<>();
+       if (tagsQuery.getTagType()!=null)queryWrapper.eq("tag_type",tagsQuery.getTagType());
+        if (tagsQuery.getParentId()!=null) queryWrapper.eq("parent_id",tagsQuery.getParentId());
+        return tagsMapper.selectPage(page,queryWrapper);
 
     }
 
@@ -45,12 +48,6 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements Ta
 
     }
 
-    @Override
-    public IPage<Tags> getChildrenTags(Page<Tags> page, TagsQuery tagsQuery) {
-        QueryWrapper<Tags> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("parent_id",tagsQuery.getParentId());
-        return tagsMapper.selectPage(page,queryWrapper);
-    }
 
     @Override
     public Integer insertTags(Tags tag) {

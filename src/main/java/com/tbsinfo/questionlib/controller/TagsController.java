@@ -43,7 +43,7 @@ public class TagsController {
         //ModelAndView modelAndView=new ModelAndView("math-exe.html");
         Page<Tags> page=new Page<>(tagsQuery.getPage(), tagsQuery.getSize());
         //modelAndView.addObject("Questions", page);
-        return new RetData().success(tagsService.getTagsList(page));
+        return new RetData().success(tagsService.getTagsList(page,tagsQuery));
     }
     @PostMapping("/updateTag")
     public RetData<String> updateTag(Tags tags){
@@ -63,13 +63,7 @@ public class TagsController {
         if (tag!=null)return new RetData().success("");
         return new RetData().erro("500","");
     }
-    @GetMapping("/getChildrenTags")
-    public RetData getChildrenTags(TagsQuery tagsQuery) {
-        //ModelAndView modelAndView=new ModelAndView("math-exe.html");
-        Page<Tags> page=new Page<>(tagsQuery.getPage(), tagsQuery.getSize());
-        //modelAndView.addObject("Questions", page);
-        return new RetData().success(tagsService.getChildrenTags(page,tagsQuery));
-    }
+
     @PostMapping("/insertTags")
     public RetData insertTags(Tags tag) {
         //ModelAndView modelAndView=new ModelAndView("math-exe.html");
