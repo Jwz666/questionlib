@@ -3,8 +3,10 @@ package com.tbsinfo.questionlib.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tbsinfo.questionlib.component.AddTagsQuery;
 import com.tbsinfo.questionlib.component.QuestionQuery;
 import com.tbsinfo.questionlib.component.RetData;
+import com.tbsinfo.questionlib.dao.QuestionTagsMapper;
 import com.tbsinfo.questionlib.model.BaseQuestions;
 import com.tbsinfo.questionlib.service.BaseQuestionsService;
 import com.tbsinfo.questionlib.utils.HTMLUntil;
@@ -30,6 +32,7 @@ public class BaseQuestionsController {
 
     @Autowired
     private BaseQuestionsService questionsService;
+
 
     @GetMapping("/getQuestionByPage")
     public RetData getQuestionByPage( QuestionQuery questionQuery) {
@@ -65,6 +68,19 @@ public class BaseQuestionsController {
             return new RetData().success(null);
         }
         return new RetData().erro("500", "操作失败，请稍后重试");
+    }
+
+    @GetMapping("/getQuestionTags")
+    public RetData getQuestionTags(Long id) {
+        if(id==null) {
+            return new RetData().erro("500", "请传入题目id");
+        }
+        return new RetData().success(questionsService.getTagsByQuestionId(id));
+    }
+
+    @PostMapping("/addTagsToQuestion")
+    public RetData addTagsToQuestion(@RequestBody AddTagsQuery addTagsQuery) {
+        return questionsService.addTags(addTagsQuery.getQuestionId(),addTagsQuery.getTagsList());
     }
 
 }

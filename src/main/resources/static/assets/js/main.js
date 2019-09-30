@@ -28,10 +28,19 @@ function timeStamp2String(time){
 };
 
 function questionTypeFormatter(questionType) {
-    if(questionType==1||questionType=='1') {
-        return "选择题";
+    console.log("questionType = " + questionType);
+    _questionType = parseInt(questionType);
+    var questionTypeStr;
+    switch (_questionType) {
+        case 1:
+            questionTypeStr =  "选择题";
+            break;
+        case 2:
+            questionTypeStr = "简答题";
+            break;
+        case 3:
+            questionTypeStr = "填空题";
+            break;
     }
-    if(questionType==2||questionType=='2') {
-        return "简答题";
-    }
+    return questionTypeStr;
 }

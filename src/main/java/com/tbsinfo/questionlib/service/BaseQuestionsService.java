@@ -6,6 +6,8 @@ import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.model.BaseQuestions;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tbsinfo.questionlib.model.QuelibQuestionType;
+import com.tbsinfo.questionlib.model.QuestionTags;
+import com.tbsinfo.questionlib.model.Tags;
 
 import java.util.List;
 
@@ -25,5 +27,8 @@ public interface BaseQuestionsService extends IService<BaseQuestions> {
 
     List<QuelibQuestionType> getQuestionTypeList();
 
+    List<Tags> getTagsByQuestionId(Long id);
+
+    RetData addTags(Long questionId,List<Long> tagsList);
 
 }
