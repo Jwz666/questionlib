@@ -43,7 +43,7 @@ public class Tags implements Serializable {
     private Integer difficult;
 
     /**
-     * 标签类型 能力 1 知识点 2
+     * 标签类型 能力点 1 知识点 2
      */
     private String tagType;
 

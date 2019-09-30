@@ -46,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
             return new RetData().erro("500", "该用户不存在");
         }
         if(userdb.getPassword().equals(Md5Util.md5Password(userInfo.getPassword()))) {
-            session.setAttribute("user", userInfo);
+            session.setAttribute("user", userdb);
             String time=simpleDateFormat.format(new Date());
             log.info("用户："+userInfo.getUserName()+" 于 "+time+" 登录系统");
             return new RetData().success(null);
