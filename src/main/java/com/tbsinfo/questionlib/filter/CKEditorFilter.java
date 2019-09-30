@@ -26,7 +26,7 @@ public class CKEditorFilter implements Filter {
         if(url.contains("&")) {
             url = url.substring(0, url.indexOf("&"));
             logger.info("after handel url "+url);
-            request.getRequestDispatcher("/file/upload").forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         } else {
             filterChain.doFilter(request, response);
         }
