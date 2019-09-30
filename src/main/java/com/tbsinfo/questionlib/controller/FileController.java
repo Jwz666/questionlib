@@ -37,8 +37,7 @@ public class FileController {
      * @return
      */
     @PostMapping("/file/upload")
-    @ResponseBody
-    public RetData fileUpload(@RequestParam("upload") MultipartFile file,
+    public Object fileUpload(@RequestParam("upload") MultipartFile file,
                               HttpServletRequest request, HttpServletResponse response) {
 
         FileUpload uploadImageModel = new FileUpload();
@@ -61,6 +60,6 @@ public class FileController {
                return new RetData().erro("500","上传出错");
             }
         }
-        return new RetData().success(uploadImageModel);
+        return uploadImageModel;
     }
 }
