@@ -40,7 +40,7 @@
             <div>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                        <li class="breadcrumb-item"><a href="#">题库管理</a></li>
+                        <li class="breadcrumb-item"><a href="math-index.html">题库管理</a></li>
                         <li class="breadcrumb-item active" aria-current="page">题目列表</li>
                     </ol>
                 </nav>
@@ -182,6 +182,7 @@
                     var questionList=data.body.records;
                     if(questionList.length != 0) {
                         for(var i=0;i<questionList.length;i++) {
+                            console.log("heheh = " + questionList[i].questionType);
                             $("#questionList").append(' <tr >\n' +
                                 '                                <td >'+questionList[i].id+'</td>\n' +
                                 '                                <td >'+questionList[i].content+'</td>\n' +
@@ -207,16 +208,50 @@
                         }
                     }
                     totalPage=page.pages;
+                    currentPageIndex=parseInt(currentPageIndex);
                     var showPage=totalPage;
-                    if(totalPage>3) {
-                        showPage=3;
-                    }
                     $(".page-item").remove();
-                    for (i = 0; i < totalPage; i++) {
-                        var current = i + 1;
-                        $("#nextPage").before('<li class="page-item" data-id=' + current + '><a class="page-link" href="#" onclick="pageChange(this)">' + current + '</a></li>');
-
+                    if(totalPage>3) {
+                    if(currentPageIndex-1<1) {
+                        var page1=currentPageIndex;
+                        var page2=currentPageIndex+1;
+                        var page3=currentPageIndex+2;
+                        $("#nextPage").before('<li class="page-item" data-id=' + page1 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page1 + '</a></li>');
+                        $("#nextPage").before('<li class="page-item" data-id=' + page2 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page2 + '</a></li>');
+                        $("#nextPage").before('<li class="page-item" data-id=' + page3 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page3 + '</a></li>');
+                    }else if(currentPageIndex+1>totalPage) {
+                        console.log("situation 2--"+currentPageIndex);
+                        console.log("totalpage--"+totalPage);
+                            var page1=parseInt(currentPageIndex);
+                            var page2=parseInt(currentPageIndex)-1;
+                            var page3=parseInt(currentPageIndex)-2;
+                            console.log("page----"+page1);
+                            console.log("page----"+page2);
+                            console.log("page----"+page3);
+                            $("#nextPage").before('<li class="page-item" data-id=' + page3 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page3 + '</a></li>');
+                            $("#nextPage").before('<li class="page-item" data-id=' + page2 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page2 + '</a></li>');
+                            $("#nextPage").before('<li class="page-item" data-id=' + page1 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page1 + '</a></li>');
+                        } else {
+                        var page1=parseInt(currentPageIndex)-1;
+                        var page2=parseInt(currentPageIndex);
+                        var page3=parseInt(currentPageIndex)+1;
+                        console.log("situation 3--"+currentPageIndex);
+                        console.log("page----"+page1);
+                        console.log("page----"+page2);
+                        console.log("page----"+page3);
+                        $("#nextPage").before('<li class="page-item" data-id=' + page1 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page1 + '</a></li>');
+                        $("#nextPage").before('<li class="page-item" data-id=' + page2 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page2 + '</a></li>');
+                        $("#nextPage").before('<li class="page-item" data-id=' + page3 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page3 + '</a></li>');
                     }
+                    } else {
+
+                        for (i = 0; i < totalPage; i++) {
+                            var current = i + 1;
+                            $("#nextPage").before('<li class="page-item" data-id=' + current + '><a class="page-link" href="#" onclick="pageChange(this)">' + current + '</a></li>');
+
+                        }
+                    }
+
                 }
                 if(data.code=='500') {
                     alert(data.message);
@@ -258,6 +293,7 @@
        if(nextPage>totalPage) {
            return;
        }
+       currentPageIndex=nextPage;
        console.log(nextPage);
         var pageInfo={};
         pageInfo.page=nextPage;
@@ -272,6 +308,7 @@
         if(lastPage<0) {
             return;
         }
+        currentPageIndex=lastPage;
         console.log(lastPage);
         var pageInfo={};
         pageInfo.page=lastPage;
