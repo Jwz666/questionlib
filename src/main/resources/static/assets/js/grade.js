@@ -2,86 +2,31 @@ var tagList;
 var totalPage;
 var currentPageIndex=1;
 $(function () {
-    var pageInfo={};
-    pageInfo.page=currentPageIndex;
+    var pageInfo = {};
+    pageInfo.page = currentPageIndex;
     getTags(pageInfo);
-
-// 父标签插入
-    $("#insertParentTag").click(function () {
-
-        var  insertTag={};
-        insertTag.tagName=$("#insertParentTagName").val();
-        insertTag.tagType=$("#insertParentTagType").val();
-        insertTag.parentId=0;
-        $.ajax({
-            // async : false,    //表示请求是否异步处理
-            type : "post",    //请求类型
-            url : "/tags/insertTags",//请求的 URL地址
-            data: insertTag,
-            dataType : "json",//返回的数据类型
-            success: function (data) {
-                $("#insertModalBillingInfo").modal("hide")
-                console.log(data);  //在控制台打印服务器端返回的数据
-                if (data.code == '200') {
-                    $.alert({
-                        title: "提示",
-                        content: data.message,
-                        onClose: function () {
-                            flushTags()
-                        }
-                    })}
-                if (data.code == '500') {
-                    $.alert({
-                        title: "",
-                        content: data.message,
-                        onClose: function () {
-                            flushTags()
-                        }
-                    });
-                }
-            }
-        });
-
-
-
-    });
 });
 
-function tagType(tagType) {
-    if (tagType==1){return "能力点";}
-    if (tagType=="能力点"){return 1;}
-    if (tagType==2){return "知识点";}
-    if (tagType=="知识点"){return 2;}
 
-}
+
 // updateTagId=null;
-$("body").on('click','.editTagsBtn',function () {
+$("body").on('click','.editGradeBtn',function () {
     thistr = $(this).parent().parent();
-    updateTagId = thistr.attr('id');
+    updateGradeId = thistr.attr('id');
     $.ajax({
         // async : false,    //表示请求是否异步处理
         type: "post",    //请求类型
-        url: "/tags/readyToEdit",//请求的 URL地址
-        data: {id:updateTagId},
+        url: "/grades/readyToEdit",//请求的 URL地址
+        data: {id:updateGradeId},
         dataType: "json",//返回的数据类型
         success: function (data) {
             console.log(data);  //在控制台打印服务器端返回的数据
             if (data.code == '200') {
-                window.location.href = "math-tagsedit.html?id="+updateTagId;
+                window.location.href = "math-Gradeedit.html?id="+updateGradeId;
             }
         }
     });
 });
-$("#selectShowType").change(function() {
-
-
-    var pageInfo={};
-    pageInfo.page=1;
-
-    if ($(this).val()!="all") pageInfo.tagType=$(this).val();
-    getTags(pageInfo);
-
-})
 
 function getTags(pageInfo) {
     $("#tagList").empty();
@@ -89,27 +34,27 @@ function getTags(pageInfo) {
     $.ajax({
         // async : false,    //表示请求是否异步处理
         type : "get",    //请求类型
-        url : "/tags/getTagsByPage",//请求的 URL地址
+        url : "/grades/getGradesByPage",//请求的 URL地址
         data: pageInfo,
         dataType : "json",//返回的数据类型
         success: function (data) {
             console.log(data);  //在控制台打印服务器端返回的数据
             if(data.code=='200') {
-                tagList=data.body.records;
+                gradesList=data.body.records;
                 totalPage=data.body.pages;
                 currentPageIndex=pageInfo.page;
-                if(tagList.length != 0) {
-                    for(var i=0;i<tagList.length;i++) {
-                        $("#tagList").append(
-                            ' <tr id="'+tagList[i].id+'">\n' +
-                            '     <td id="trTagName">'+tagList[i].tagName+'</td>\n' +
-                            '     <td id="trTagType">'+tagType(tagList[i].tagType)+'</td>\n' +
-                            '     <td></td>\n' +
-                            '     <td>\n' +
-                            '         <button class="btn btn-sm btn-primary btn-uppercase editTagsBtn">编辑</button>\n' +
-                            '     </td>\n' +
-                            ' </tr>\n' +
-                            ' <tr>                                                                /n'
+                if(gradesList.length != 0) {
+                    for(var i=0;i<gradesList.length;i++) {
+                        $("#gradesList").append(
+                            '  <tr id="'+gradesList[i].id+'">                                                                                                    \n'+
+                            '      <td>'+gradesList[i].gradeName+'</td>                                                                                      \n'+
+                            '      <td>'+(Number(i)+1)+'</td>                                                                                          \n'+
+                            '      <td>                                                                                                \n'+
+                            '          <button class="btn btn-sm btn-primary btn-uppercase editGradeBtn ">编辑</button>                               \n'+
+                            '      </td>                                                                                               \n'+
+                            '  </tr>                                                                                                   \n'+
+                            '                                                                                                          \n'+
+                            '                                                                                                          \n'
                         );
                     }
                     // 神秘
