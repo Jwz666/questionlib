@@ -7,6 +7,8 @@ import com.tbsinfo.questionlib.model.Grades;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tbsinfo.questionlib.model.Tags;
 
+import java.util.List;
+
 /**
  * <p>
  * 年级表 服务类
@@ -20,6 +22,6 @@ public interface GradesService extends IService<Grades> {
 
     public Grades getGradeInfoById(int id) ;
 
-    public  Page<Tags> getTagsByGradesId (int id);
+
 
 }

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../assets/css/dashforge.dashboard.css">
     <link rel="stylesheet" href="../../assets/css/auth.css">
     <link rel="stylesheet" href="../../assets/css/datepicker.css">
+    <link rel="stylesheet" href="../../assets/css/jquery-confirm.css">
 </head>
 
 <body class="page-profile">
@@ -180,7 +181,8 @@
                     </div>
                     <div class="_selection col-xs-12  inputInfo filterInput mt-5">
                         <div class="col-xs-2 pl-0">能力点标签</div>
-                        <div class="col-xs-8" id="ability">
+
+                        <div class="col-xs-8" id="abilityTag">
 
                         </div>
                         <div class="col-xs-2 ">
@@ -189,7 +191,9 @@
                         </div>
                         <hr style="display: block;float: left;width: 100%;">
                         <div class="col-xs-2 pl-0">知识点标签</div>
-                        <div class="col-xs-8" id="konwledge">
+
+                        <div class="col-xs-8"id="intelligenceTag">
+
 
                         </div>
                         <div class="col-xs-2 ">
@@ -284,6 +288,7 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div>
+
 <div class="modal fade" id="modalBillingInfo1" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
         <div class="modal-content">
@@ -301,30 +306,24 @@
 
                 <div class="form-group">
                     <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">核心能力</label>
-                    <select name="" class="form-control" id="baseAbility">
-                        <option value="">逻辑推理能力</option>
-                        <option value="空间想象能力">空间想象能力</option>
-                        <option value="运算能力">运算能力</option>
-                        <option value="转换与创造能力">转换与创造能力</option>
+
+                    <select name="" class="form-control" id="coreAbility">
+
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">次级能力</label>
-                    <select name="" class="form-control" id="childAbility">
-                        <option value="">可逆推理</option>
-                        <option value="">类比推理</option>
-                        <option value="">归纳推理</option>
-                        <option value="">演绎推理</option>
-                        <option value="">整分变化</option>
-                        <option value="">数形结合</option>
-                        <option value="">图形变换</option>
+
+                    <select name="" class="form-control" id="otherAbility">
+
+
                     </select>
                 </div>
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary"id="saveAblity">保存</button>
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
@@ -348,30 +347,20 @@
 
                 <div class="form-group">
                     <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">核心知识点</label>
-                    <select name="" class="form-control">
-                        <option value="">函数图像</option>
-                        <option value="空间想象能力">正多边形</option>
-                        <option value="运算能力">点、直线和圆的位置关系</option>
-                        <option value="转换与创造能力">圆的基本性质</option>
+                    <select name="" class="form-control"id="coreIntelligence" >
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">次级知识点</label>
-                    <select name="" class="form-control">
-                        <option value="">可逆推理</option>
-                        <option value="">类比推理</option>
-                        <option value="">归纳推理</option>
-                        <option value="">演绎推理</option>
-                        <option value="">整分变化</option>
-                        <option value="">数形结合</option>
-                        <option value="">图形变换</option>
+                    <select name="" class="form-control"id="otherIntelligence">
+
                     </select>
                 </div>
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" >保存</button>
+                <button type="button" class="btn btn-primary"id ="saveIntelligence">保存</button>
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
@@ -380,6 +369,7 @@
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../../lib/feather-icons/feather.min.js"></script>
+<script src="../../lib/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="../../assets/js/dashforge.js"></script>
 <script src="../../assets/js/dashforge.sampledata.js"></script>
 <script src="../../assets/ckeditor/ckeditor.js"></script>
@@ -532,6 +522,7 @@
 
 
 </script>
+<script src="../../assets/js/exedit.js"></script>
 
 </body>
 </html>

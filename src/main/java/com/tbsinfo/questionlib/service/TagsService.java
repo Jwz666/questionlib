@@ -3,6 +3,8 @@ package com.tbsinfo.questionlib.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tbsinfo.questionlib.component.TagsQuery;
+import com.tbsinfo.questionlib.model.GradesTags;
+import com.tbsinfo.questionlib.model.QuestionTags;
 import com.tbsinfo.questionlib.model.Tags;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -24,8 +26,23 @@ public interface TagsService extends IService<Tags> {
 
     Integer updateTag(Tags tags);
 
+    List<Tags> getTagsByGradesId (int id);
 
     Integer insertTags(Tags tag);
 
+
     List<Tags> getTagsInfo(Tags tags);
+
+    Integer deleteGradesTagRelation(String gradesId, String tagsId);
+
+    List<Tags> getTagsByTypeAndParentId(String tagType, String parentId);
+
+    Integer insertGradesTags(GradesTags gt);
+
+    Integer insertQuestionsTags(QuestionTags qt);
+
+    Integer deleteQuestionsTagRelation(String questionsId, String tagsId);
+
+    List<Tags> getTagsByQuestionId(int parseInt);
+
 }

@@ -14,7 +14,7 @@ public class RetData<T> {
 
     private String code="200";
 
-    private String message="success";
+    private String message="提交成功";
 
     private T body;
 

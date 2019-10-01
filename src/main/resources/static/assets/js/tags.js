@@ -183,7 +183,7 @@ function flushTags() {
 function lastPage(){
     var pageInfo={};
     if (currentPageIndex>1) {
-        pageInfo.page = currentPageIndex - 1;
+        pageInfo.page = Number(currentPageIndex )- 1;
         if ($("#selectShowType").val() != "all") pageInfo.tagType = $("#selectShowType").val();
         getTags(pageInfo);
     }
@@ -191,7 +191,7 @@ function lastPage(){
 function nextPage(){
     var pageInfo={};
     if (currentPageIndex<totalPage) {
-        pageInfo.page = currentPageIndex+1;
+        pageInfo.page = Number(currentPageIndex )+1;
         if ($("#selectShowType").val() != "all") pageInfo.tagType = $("#selectShowType").val();
         getTags(pageInfo);
     }
