@@ -239,7 +239,8 @@ function appendDependcy(tagid) {
                         showDepend(editTags);
                         $(".modal").modal('hide');
                     }
-                })}
+                });
+            }
             if (data.code == '500') {
                 $.alert({
                     title: "",

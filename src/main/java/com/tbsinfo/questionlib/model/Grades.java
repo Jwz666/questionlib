@@ -1,6 +1,7 @@
 package com.tbsinfo.questionlib.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class Grades implements Serializable {
     /**
      * 年级
      */
+    @TableField("grade_name")
     private String gradeName;
 
 

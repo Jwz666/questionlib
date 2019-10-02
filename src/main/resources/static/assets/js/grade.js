@@ -5,6 +5,34 @@ $(function () {
     var pageInfo = {};
     pageInfo.page = currentPageIndex;
     getTags(pageInfo);
+
+    //添加年级click
+    $('#insertGrade').click(function () {
+        var Grades={};
+        Grades.gradeName=$("#insertGradeName").val();
+        $.ajax({
+            // async : false,    //表示请求是否异步处理
+            type: "post",    //请求类型
+            url: "/grades/insertGrades",//请求的 URL地址
+            data: Grades,
+            dataType: "json",//返回的数据类型
+            success: function (data) {
+                console.log(data);  //在控制台打印服务器端返回的数据
+                if (data.code == '200') {
+                    $.alert({
+                        title: "提示",
+                        content: data.message,
+                        onClose: function () {
+                            var pageInfo = {};
+                            pageInfo.page = currentPageIndex;
+                            getTags(pageInfo);
+                            $(".modal").modal('hide');
+                        }
+                    });
+                }
+            }
+        });
+    })
 });
 
 
@@ -29,7 +57,7 @@ $("body").on('click','.editGradeBtn',function () {
 });
 
 function getTags(pageInfo) {
-    $("#tagList").empty();
+    $("#gradesList").empty();
     pageInfo.size=20;
     $.ajax({
         // async : false,    //表示请求是否异步处理
@@ -48,7 +76,7 @@ function getTags(pageInfo) {
                         $("#gradesList").append(
                             '  <tr id="'+gradesList[i].id+'">                                                                                                    \n'+
                             '      <td>'+gradesList[i].gradeName+'</td>                                                                                      \n'+
-                            '      <td>'+(Number(i)+1)+'</td>                                                                                          \n'+
+                            '      <td>'+'</td>                                                                                          \n'+
                             '      <td>                                                                                                \n'+
                             '          <button class="btn btn-sm btn-primary btn-uppercase editGradeBtn ">编辑</button>                               \n'+
                             '      </td>                                                                                               \n'+
