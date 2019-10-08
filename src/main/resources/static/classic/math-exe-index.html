@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>TBS-data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="../../assets/css/dashforge.css">
+    <link rel="stylesheet" href="../../assets/css/dashforge.auth.css">
+    <link rel="stylesheet" href="../../assets/css/iconfont.css">
+    <link rel="stylesheet" href="../../assets/css/auth.css">
+</head>
+<body>
+
+<header class="navbar navbar-header navbar-header-fixed">
+    <div class="navbar-brand">
+        <img src="../../assets/img/TBS%20logo.png" alt="">
+    </div><!-- navbar-brand -->
+    <div class="navbar-right">
+        <div class="dropdown dropdown-profile">
+            <a href="" class="dropdown-link" data-toggle="dropdown" data-display="static">
+                <div class="avatar-md"><span  id="showUserName"class="avatar-initial rounded-circle">用户</span></div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right tx-13">
+                <button onclick="exit()" class="dropdown-item">退出登录</button>
+                <script>
+                    window.onload=function () {
+                        $.ajax({
+                            async : false,    //表示请求是否异步处理
+                            type : "Post",    //请求类型
+                            url : "/getCurrentUser",//请求的 URL地址
+                            data: null,
+                            dataType : "json",//返回的数据类型
+                            success: function (data) {
+                                currentUser=data.body;
+                                $("#showUserName").text(currentUser.userName);
+                            },
+                            error:function (data) {
+                                alert("请刷新重试");
+                            }
+
+                        }); }
+                    function exit() {
+                        $.post("/logout",null,function () {
+                            window.location.href="math-signin.html"
+                        });
+                    }</script>
+            </div><!-- dropdown-menu -->
+        </div><!-- dropdown -->
+    </div><!-- navbar-right -->
+</header><!-- navbar -->
+
+
+<div class="content content-fixed content-auth-alt col-xs-12">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="math-index.html">题库管理</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">题库分类</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="container ht-100p tx-center">
+            <div class="row justify-content-center">
+                <div class="col-10 col-sm-6 col-md-4 col-lg-3 d-flex flex-column">
+                    <div class="tx-100 lh-1"><i class="icon ion-ios-bicycle"></i></div>
+                    <i class="iconfont _class">&#xe648;</i>
+                    <h3 class="mg-b-25">草稿</h3>
+                    <p class="tx-color-03 mg-b-25">当前题目未打标签。</p>
+                    <a href="math-exe.html " class="btn btn-primary btn-block">进入</a>
+                </div><!-- col -->
+                <div class="col-10 col-sm-6 col-md-4 col-lg-3 mg-t-40 mg-sm-t-0 d-flex flex-column">
+                    <div class="tx-100 lh-1"><i class="icon ion-ios-car"></i></div>
+                    <i class="iconfont _class">&#xe605;</i>
+                    <h3 class="mg-b-25">已审核</h3>
+                    <p class="tx-color-03 mg-b-25">当前题目已审核。</p>
+                    <a href="math-exe.html " class="btn btn-primary btn-block">进入</a>
+                </div><!-- col -->
+                <div class="col-10 col-sm-6 col-md-4 col-lg-3 mg-t-40 mg-md-t-0 d-flex flex-column">
+                    <div class="tx-100 lh-1"><i class="icon ion-ios-boat"></i></div>
+                    <i class="iconfont _class">&#xe6e3;</i>
+                    <h3 class="mg-b-25">已完成</h3>
+                    <p class="tx-color-03 mg-b-25">当前题目已完成。</p>
+                    <a href="math-exe.html" class="btn btn-primary btn-block">进入</a>
+                </div><!-- col -->
+            </div><!-- row -->
+        </div><!-- container -->
+    </div><!-- content -->
+</div>
+
+
+
+    <script src="../../lib/jquery/jquery.min.js"></script>
+    <script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../lib/feather-icons/feather.min.js"></script>
+    <script src="../../lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+    <script src="../../assets/js/dashforge.js"></script>
+
+
+</body>
+</html>
