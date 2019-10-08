@@ -39,13 +39,13 @@ function showDepend(parentdata) {
                 var tagList=data.body;
                 if(tagList.length != 0) {
                     for(var i=0;i<tagList.length;i++) {
-                        if (tagList[i].tagType==1){
+                        if (tagList[i].sonTags.tagType==1){
                              $("#abilityTag").append(
-                                  '<span class="_tags" id="'+tagList[i].id+'">'+tagList[i].tagName+' <i class="_tagsDelBtn">✖</i></span>'
+                                  '<span class="_tags" id="'+tagList[i].sonTags.id+'">'+tagList[i].parentTags.tagName+"-"+tagList[i].sonTags.tagName+' <i class="_tagsDelBtn">✖</i></span>'
                         );}
-                        if (tagList[i].tagType==2){
+                        if (tagList[i].sonTags.tagType==2){
                             $("#intelligenceTag").append(
-                                  '<span class="_tags" id="'+tagList[i].id+'">'+tagList[i].tagName+' <i class="_tagsDelBtn">✖</i></span>'
+                                  '<span class="_tags" id="'+tagList[i].sonTags.id+'">'+tagList[i].parentTags.tagName+"-"+tagList[i].sonTags.tagName+' <i class="_tagsDelBtn">✖</i></span>'
                             );
                         }
                     }

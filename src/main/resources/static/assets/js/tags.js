@@ -1,17 +1,24 @@
 var tagList;
 var totalPage;
 var currentPageIndex=1;
+var showTagType="all";
 $(function () {
     var pageInfo={};
     pageInfo.page=currentPageIndex;
+    showTagType=getQueryVariable("tagType");
+    $("#insertParentTagType").val(tagType(showTagType))
+    // $("#selectShowType").val(showTagType);
+    pageInfo.tagType=showTagType;
+
     getTags(pageInfo);
+
 
 // 父标签插入
     $("#insertParentTag").click(function () {
 
         var  insertTag={};
         insertTag.tagName=$("#insertParentTagName").val();
-        insertTag.tagType=$("#insertParentTagType").val();
+        insertTag.tagType=tagType($("#insertParentTagType").val());
         insertTag.parentId=0;
         $.ajax({
             // async : false,    //表示请求是否异步处理
@@ -27,7 +34,9 @@ $(function () {
                         title: "提示",
                         content: data.message,
                         onClose: function () {
-                            flushTags()
+                            flushTags();
+                            $("#insertParentTagName").val(null);
+                            $("insertParentTagType").val("能力点");
                         }
                     })}
                 if (data.code == '500') {
@@ -35,7 +44,9 @@ $(function () {
                         title: "",
                         content: data.message,
                         onClose: function () {
-                            flushTags()
+                            flushTags();
+                            $("#insertParentTagName").val(null);
+                            $("insertParentTagType").val("能力点");
                         }
                     });
                 }
@@ -46,7 +57,7 @@ $(function () {
 
     });
 });
-
+// 快乐转换
 function tagType(tagType) {
     if (tagType==1){return "能力点";}
     if (tagType=="能力点"){return 1;}
@@ -72,16 +83,16 @@ $("body").on('click','.editTagsBtn',function () {
         }
     });
 });
-$("#selectShowType").change(function() {
-
-
-    var pageInfo={};
-    pageInfo.page=1;
-
-    if ($(this).val()!="all") pageInfo.tagType=$(this).val();
-    getTags(pageInfo);
-
-})
+// $("#selectShowType").change(function() {
+//
+//
+//     var pageInfo={};
+//     pageInfo.page=1;
+//
+//     if ($(this).val()!="all") pageInfo.tagType=$(this).val();
+//     getTags(pageInfo);
+//
+// })
 
 function getTags(pageInfo) {
     $("#tagList").empty();
@@ -98,6 +109,7 @@ function getTags(pageInfo) {
                 tagList=data.body.records;
                 totalPage=data.body.pages;
                 currentPageIndex=pageInfo.page;
+
                 if(tagList.length != 0) {
                     for(var i=0;i<tagList.length;i++) {
                         $("#tagList").append(
@@ -167,7 +179,7 @@ function getTags(pageInfo) {
     })
 
 }
-//蒋万泽的神秘代码传的是个this
+//蒋万泽的神秘代码/传的是个this
 function pageChange(target) {
     currentPageIndex=$(target).text();
     console.log(currentPageIndex);
@@ -176,7 +188,8 @@ function pageChange(target) {
 function flushTags() {
     var pageInfo={};
     pageInfo.page=currentPageIndex;
-    if ($("#selectShowType").val()!="all")pageInfo.tagType=$("#selectShowType").val();
+    // if ($("#selectShowType").val()!="all")pageInfo.tagType=$("#selectShowType").val();
+    pageInfo.tagType=showTagType;
     getTags(pageInfo);
 
 }
@@ -184,7 +197,8 @@ function lastPage(){
     var pageInfo={};
     if (currentPageIndex>1) {
         pageInfo.page = Number(currentPageIndex )- 1;
-        if ($("#selectShowType").val() != "all") pageInfo.tagType = $("#selectShowType").val();
+        // if ($("#selectShowType").val() != "all") pageInfo.tagType = $("#selectShowType").val();
+        pageInfo.tagType=showTagType;
         getTags(pageInfo);
     }
 }
@@ -192,13 +206,24 @@ function nextPage(){
     var pageInfo={};
     if (currentPageIndex<totalPage) {
         pageInfo.page = Number(currentPageIndex )+1;
-        if ($("#selectShowType").val() != "all") pageInfo.tagType = $("#selectShowType").val();
+        // if ($("#selectShowType").val() != "all") pageInfo.tagType = $("#selectShowType").val();
+        pageInfo.tagType=showTagType;
         getTags(pageInfo);
     }
 }
 
 
-
+//获取url参数
+function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
 
 
 

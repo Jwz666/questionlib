@@ -41,4 +41,9 @@ CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserUploadUrl="/file/upload";
 
 	config.removePlugins = 'easyimage,cloudservices';
+
+	config.extraPlugins = 'jdmath';
+	config.allowedContent = true;
 };
+
+CKEDITOR.config.contentsCss = '../../assets/ckeditor/plugins/jdmath/mathquill-0.10.1/mathquill.css';

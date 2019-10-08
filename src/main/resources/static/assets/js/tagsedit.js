@@ -19,7 +19,7 @@ $(function () {
         }
 
     });
-
+    $("#ahref2mathTag").attr("href","math-tags.html?tagType="+editTags.tagType);
 
 });
 //得到子标签列表

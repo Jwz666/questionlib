@@ -3,6 +3,7 @@ package com.tbsinfo.questionlib.controller;
 import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.model.UserInfo;
 import com.tbsinfo.questionlib.service.UserService;
+import com.tbsinfo.questionlib.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,4 +39,15 @@ public class UserController {
     public RetData addUser(@RequestBody UserInfo userInfo) {
         return userService.addUser(userInfo);
     }
+
+    @PostMapping("/logout")
+    public RetData logout() {
+        RequestUtil.getRequest().getSession().removeAttribute("user");
+        return new RetData().success("");
+    }
+    @PostMapping("/getCurrentUser")
+    public RetData getCurrentUser() {
+        return new RetData().success(RequestUtil.getRequest().getSession().getAttribute("user"));
+    }
+
 }

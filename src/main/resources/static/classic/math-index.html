@@ -21,20 +21,38 @@
     <div class="navbar-right">
       <div class="dropdown dropdown-profile">
         <a href="" class="dropdown-link" data-toggle="dropdown" data-display="static">
-          <div class="avatar avatar-sm"><img src="https://via.placeholder.com/500" class="rounded-circle" alt="">
-          </div>
-        </a><!-- dropdown-link -->
+          <div class="avatar-md"><span  id="showUserName"class="avatar-initial rounded-circle">用户</span></div>
+        </a>
         <div class="dropdown-menu dropdown-menu-right tx-13">
-          <div class="avatar avatar-lg mg-b-15"><img src="https://via.placeholder.com/500" class="rounded-circle"
-                                                     alt=""></div>
-          <h6 class="tx-semibold mg-b-5">Katherine Pechon</h6>
-          <a href="page-signin.html" class="dropdown-item"><i data-feather="log-out"></i>Sign Out</a>
+          <button onclick="exit()" class="dropdown-item">退出登录</button>
+          <script>
+            window.onload=function () {
+              $.ajax({
+                async : false,    //表示请求是否异步处理
+                type : "Post",    //请求类型
+                url : "/getCurrentUser",//请求的 URL地址
+                data: null,
+                dataType : "json",//返回的数据类型
+                success: function (data) {
+                  currentUser=data.body;
+                  $("#showUserName").text(currentUser.userName);
+                },
+                error:function (data) {
+                  alert("请刷新重试");
+                }
+
+              }); }
+            function exit() {
+              $.post("/logout",null,function () {
+                window.location.href="math-signin.html"
+              });
+            }</script>
         </div><!-- dropdown-menu -->
       </div><!-- dropdown -->
     </div><!-- navbar-right -->
   </header><!-- navbar -->
 
-    <div class="content content-fixed content-auth-alt">
+  <div class="content content-fixed content-auth-alt">
       <div class="container ht-100p tx-center">
         <div class="row justify-content-center">
           <div class="col-10 col-sm-6 col-md-4 col-lg-3 d-flex flex-column">
@@ -78,11 +96,11 @@
 
   <script>
     function questionManage() {
-      window.location.href="math-exe.html";
+      window.location.href="math-exe-index.html";
     }
 
     function tagManage() {
-      window.location.href="math-tags.html";
+      window.location.href="math-tags-index.html";
     }
 
     function gradeManage() {

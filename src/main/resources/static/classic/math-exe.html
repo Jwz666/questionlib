@@ -21,16 +21,34 @@
     <div class="navbar-right">
         <div class="dropdown dropdown-profile">
             <a href="" class="dropdown-link" data-toggle="dropdown" data-display="static">
-                <div class="avatar avatar-sm"><img src="https://via.placeholder.com/500" class="rounded-circle" alt="">
-                </div>
-            </a><!-- dropdown-link -->
-            <div class="dropdown-menu dropdown-menu-right tx-13">
-                <div class="avatar avatar-lg mg-b-15"><img src="https://via.placeholder.com/500" class="rounded-circle"
-                                                           alt=""></div>
-                <h6 class="tx-semibold mg-b-5">Katherine Pechon</h6>
-                <a href="page-signin.html" class="dropdown-item"><i data-feather="log-out"></i>Sign Out</a>
-            </div><!-- dropdown-menu -->
-        </div><!-- dropdown -->
+            <div class="avatar-md"><span  id="showUserName"class="avatar-initial rounded-circle">用户</span></div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right tx-13">
+            <button onclick="exit()" class="dropdown-item">退出登录</button>
+            <script>
+                window.onload=function () {
+                    $.ajax({
+                    async : false,    //表示请求是否异步处理
+                    type : "Post",    //请求类型
+                    url : "/getCurrentUser",//请求的 URL地址
+                    data: null,
+                    dataType : "json",//返回的数据类型
+                    success: function (data) {
+                        currentUser=data.body;
+                        $("#showUserName").text(currentUser.userName);
+                    },
+                    error:function (data) {
+                        alert("请刷新重试");
+                    }
+
+                }); }
+                function exit() {
+                    $.post("/logout",null,function () {
+                        window.location.href="math-signin.html"
+                    });
+                }</script>
+    </div><!-- dropdown-menu -->
+    </div><!-- dropdown -->
     </div><!-- navbar-right -->
 </header><!-- navbar -->
 
@@ -41,23 +59,22 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                         <li class="breadcrumb-item"><a href="math-index.html">题库管理</a></li>
+                        <li class="breadcrumb-item"><a href="math-exe-index.html">题库分类</a></li>
                         <li class="breadcrumb-item active" aria-current="page">题目列表</li>
                     </ol>
                 </nav>
-                <div class="search-form">
-                    <input type="search" class="form-control" placeholder="搜索">
-                    <button class="btn" type="button"><i data-feather="search"></i></button>
-                </div>
+<!--                <div class="search-form">-->
+<!--                    <input type="search" class="form-control" placeholder="搜索">-->
+<!--                    <button class="btn" type="button"><i data-feather="search"></i></button>-->
+<!--                </div>-->
             </div>
             <div class="d-none d-md-block" style="margin-top: 28px;">
-                <button class="btn btn-sm pd-x-15 btn-white btn-uppercase"><i data-feather="save"
-                                                                              class="wd-10 mg-r-5"></i> 下载模板
+                <button class="btn btn-sm pd-x-15 btn-white btn-uppercase"> 下载模板
                 </button>
-                <a href="#modalBillingInfo" data-toggle="modal"
-                   class="outline-none btn btn-sm btn-primary btn-uppercase">
-                    <i data-feather="upload" class="wd-10 mg-r-5"></i> 导入</a>
-                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5" onclick="add()"><i data-feather="sliders"
-                                                                                       class="wd-10 mg-r-5"></i> 新增
+                <button href="#modalBillingInfo" data-toggle="modal"
+                   class="outline-none btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-10">
+                    导入</button>
+                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-10" onclick="add()">新增
                 </button>
             </div>
         </div>
@@ -73,6 +90,7 @@
                                 <th>题目类型</th>
                                 <th>录入时间</th>
                                 <th>操作</th>
+                                <th>操作者</th>
                                 <th>状态</th>
                             </tr>
                             </thead>
@@ -188,22 +206,12 @@
                                 '                                <td >'+questionList[i].content+'</td>\n' +
                                 '                                <td>'+questionTypeFormatter(questionList[i].questionType)+'</td>\n' +
                                 '                                <td>'+timeStamp2String(questionList[i].createdAt)+'</td>\n' +
-                                '                                <td  onclick="edit('+questionList[i].id+')">\n' +
-                                '                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"\n' +
-                                '                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"\n' +
-                                '                                         stroke-linejoin="round" class="feather feather-sliders wd-10 mg-r-5">\n' +
-                                '                                        <line x1="4" y1="21" x2="4" y2="14"></line>\n' +
-                                '                                        <line x1="4" y1="10" x2="4" y2="3"></line>\n' +
-                                '                                        <line x1="12" y1="21" x2="12" y2="12"></line>\n' +
-                                '                                        <line x1="12" y1="8" x2="12" y2="3"></line>\n' +
-                                '                                        <line x1="20" y1="21" x2="20" y2="16"></line>\n' +
-                                '                                        <line x1="20" y1="12" x2="20" y2="3"></line>\n' +
-                                '                                        <line x1="1" y1="14" x2="7" y2="14"></line>\n' +
-                                '                                        <line x1="9" y1="8" x2="15" y2="8"></line>\n' +
-                                '                                        <line x1="17" y1="16" x2="23" y2="16"></line>\n' +
-                                '                                    </svg>\n' +
+                                '                                <td >\n' +
+                                '<a href="javascript:edit('+questionList[i].id+')">查看</a>'+
+
                                 '                                </td>\n' +
-                                '                                <td><input type="checkbox"></td>\n' +
+                                '<td></td>'+
+                                '                                <td><span class="badge badge-success">启用</span></td>\n' +
                                 '                            </tr>');
                         }
                     }
