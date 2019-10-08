@@ -8,13 +8,17 @@ import com.tbsinfo.questionlib.model.Grades;
 import com.tbsinfo.questionlib.model.Tags;
 import com.tbsinfo.questionlib.service.GradesService;
 import com.tbsinfo.questionlib.service.TagsService;
+import com.tbsinfo.questionlib.vo.TagsAndParentTags;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.tbsinfo.questionlib.controller.BaseQuestionsController.getParentAndSonTags;
 
 /**
  * <p>
@@ -59,7 +63,7 @@ public class GradesController {
     public RetData getTagsFromGradesTags(@RequestParam("id") String id) {
 
         List<Tags> page= tagsService.getTagsByGradesId(Integer.parseInt(id));
-        return new RetData().success(page);
+        return new RetData().success(getParentAndSonTags(page, tagsService));
     }
     @PostMapping("/deleteGradesTag")
     public  RetData deleteGradesTag(@RequestParam("gradesId")String gradesId,@RequestParam("tagsId")String tagsId){

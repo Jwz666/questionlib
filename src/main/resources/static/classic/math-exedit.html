@@ -22,14 +22,32 @@
     <div class="navbar-right">
         <div class="dropdown dropdown-profile">
             <a href="" class="dropdown-link" data-toggle="dropdown" data-display="static">
-                <div class="avatar avatar-sm"><img src="https://via.placeholder.com/500" class="rounded-circle" alt="">
-                </div>
-            </a><!-- dropdown-link -->
+                <div class="avatar-md"><span  id="showUserName"class="avatar-initial rounded-circle">用户</span></div>
+            </a>
             <div class="dropdown-menu dropdown-menu-right tx-13">
-                <div class="avatar avatar-lg mg-b-15"><img src="https://via.placeholder.com/500" class="rounded-circle"
-                                                           alt=""></div>
-                <h6 class="tx-semibold mg-b-5">Katherine Pechon</h6>
-                <a href="page-signin.html" class="dropdown-item"><i data-feather="log-out"></i>Sign Out</a>
+                <button onclick="exit()" class="dropdown-item">退出登录</button>
+                <script>
+                    window.onload=function () {
+                        $.ajax({
+                            async : false,    //表示请求是否异步处理
+                            type : "Post",    //请求类型
+                            url : "/getCurrentUser",//请求的 URL地址
+                            data: null,
+                            dataType : "json",//返回的数据类型
+                            success: function (data) {
+                                currentUser=data.body;
+                                $("#showUserName").text(currentUser.userName);
+                            },
+                            error:function (data) {
+                                alert("请刷新重试");
+                            }
+
+                        }); }
+                    function exit() {
+                        $.post("/logout",null,function () {
+                            window.location.href="math-signin.html"
+                        });
+                    }</script>
             </div><!-- dropdown-menu -->
         </div><!-- dropdown -->
     </div><!-- navbar-right -->
@@ -45,6 +63,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                         <li class="breadcrumb-item"><a href="math-index.html">题库管理</a></li>
+                        <li class="breadcrumb-item"><a href="math-exe-index.html">题库分类</a></li>
                         <li class="breadcrumb-item"><a href="math-exe.html">题目列表</a></li>
                         <li class="breadcrumb-item active" aria-current="page">题目编辑</li>
                     </ol>
@@ -207,13 +226,13 @@
                             <div class="col-xs-6 inputInfo filterInput pl-0">
                             </div>
                             <div class="col-xs-3 inputInfo filterInput pr-0">
-                                <button class="btn btn-sm pd-x-100 btn-white btn-uppercase">
-                                    <i data-feather="save" class="wd-10 mg-r-5"></i> 保存
+                                <button class="btn btn-sm pd-x-20 btn-white btn-uppercase" style="width: 100%;">
+                                    暂存
                                 </button>
                             </div>
                             <div class="col-xs-3 inputInfo filterInput pr-0">
-                                <button class="btn btn-sm pd-x-100 btn-primary btn-uppercase mg-l-5" onclick="addOrEdit()">
-                                    <i data-feather="upload" class="wd-10 mg-r-5" ></i> 提交
+                                <button class="btn btn-sm pd-x-20 btn-primary btn-uppercase mg-l-5" style="width: 100%;" onclick="addOrEdit()">
+                                    提交
                                 </button>
                             </div>
                         </div>
