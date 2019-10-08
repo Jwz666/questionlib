@@ -8,11 +8,15 @@ $(function () {
             showDepend(data)
 
     //得到全部能力点标签
+
 });
 //得到子标签列表
 function showDepend(parentdata) {
     $("#abilityTag").empty();
     $("#intelligenceTag").empty();
+    if(!(parentdata.id==0||parentdata.id==null)){
+
+
     $.ajax({
         async : false,    //表示请求是否异步处理
         type : "get",    //请求类型
@@ -25,13 +29,13 @@ function showDepend(parentdata) {
                 var tagList=data.body;
                 if(tagList.length != 0) {
                     for(var i=0;i<tagList.length;i++) {
-                        if (tagList[i].tagType==1){
+                        if (tagList[i].sonTags.tagType==1){
                             $("#abilityTag").append(
-                                '<span class="_tags" id="'+tagList[i].id+'">'+tagList[i].tagName+' <i class="_tagsDelBtn">✖</i></span>'
+                                '<span class="_tags" id="'+tagList[i].sonTags.id+'">'+tagList[i].parentTags.tagName+"-"+tagList[i].sonTags.tagName+' <i class="_tagsDelBtn">✖</i></span>'
                             );}
-                        if (tagList[i].tagType==2){
+                        if (tagList[i].sonTags.tagType==2){
                             $("#intelligenceTag").append(
-                                '<span class="_tags" id="'+tagList[i].id+'">'+tagList[i].tagName+' <i class="_tagsDelBtn">✖</i></span>'
+                                '<span class="_tags" id="'+tagList[i].sonTags.id+'">'+tagList[i].parentTags.tagName+"-"+tagList[i].sonTags.tagName+' <i class="_tagsDelBtn">✖</i></span>'
                             );
                         }
                     }
@@ -44,6 +48,7 @@ function showDepend(parentdata) {
         }
 
     });
+    }
 
     $.ajax({
         async : false,    //表示请求是否异步处理

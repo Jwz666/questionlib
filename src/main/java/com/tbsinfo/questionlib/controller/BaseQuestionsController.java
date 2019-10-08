@@ -12,9 +12,11 @@ import com.tbsinfo.questionlib.model.Tags;
 import com.tbsinfo.questionlib.service.BaseQuestionsService;
 import com.tbsinfo.questionlib.service.TagsService;
 import com.tbsinfo.questionlib.utils.HTMLUntil;
+import com.tbsinfo.questionlib.vo.TagsAndParentTags;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -94,7 +96,21 @@ public class BaseQuestionsController {
     public RetData getTagsByQuestionId(@RequestParam("id") String id) {
 
         List<Tags> page= tagsService.getTagsByQuestionId(Integer.parseInt(id));
-        return new RetData().success(page);
+        return new RetData().success(getParentAndSonTags(page, tagsService));
+    }
+
+    public static List<TagsAndParentTags> getParentAndSonTags(List<Tags> page, TagsService tagsService) {
+        List<TagsAndParentTags>tagsAndParentTagsList =new ArrayList<>();
+        for (Tags tags:page){
+            TagsAndParentTags tagsAndParentTags= new TagsAndParentTags();
+            tagsAndParentTags.setSonTags(tags);
+            if (tags.getParentId()!=0){
+                tagsAndParentTags.setParentTags(tagsService.getById(tags.getParentId()));
+            }
+            tagsAndParentTagsList.add(tagsAndParentTags);
+
+        }
+        return tagsAndParentTagsList;
     }
 
 
