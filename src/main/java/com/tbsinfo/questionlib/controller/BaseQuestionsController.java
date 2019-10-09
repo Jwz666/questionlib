@@ -14,6 +14,7 @@ import com.tbsinfo.questionlib.service.TagsService;
 import com.tbsinfo.questionlib.utils.HTMLUntil;
 import com.tbsinfo.questionlib.vo.TagsAndParentTags;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -60,17 +61,22 @@ public class BaseQuestionsController {
     }
 
     @PostMapping("/addOrUpdateQuestion")
-    public RetData addOrUpdateQuestion(@RequestBody  BaseQuestions baseQuestions) {
-
-        if(baseQuestions.getId()==null) {
-            baseQuestions.setCreatedAt(new Date());
-        }
+    public RetData addOrUpdateQuestion(@RequestBody BaseQuestions baseQuestions) {
         baseQuestions.setUpdatedAt(new Date());
         baseQuestions.setSource(1);
-        boolean res=questionsService.saveOrUpdate(baseQuestions);
-        if(res) {
-            return new RetData().success(null);
+        boolean res=false;
+        if(baseQuestions.getId()==null) {
+            baseQuestions.setCreatedAt(new Date());
+            baseQuestions.setStatus(0);
+
         }
+            res = questionsService.saveOrUpdate(baseQuestions);
+
+            if (res) {
+                return new RetData().success(baseQuestions);
+            }
+
+
         return new RetData().erro("500", "操作失败，请稍后重试");
     }
 

@@ -92,6 +92,7 @@ public class TagsController {
     public RetData insertQuestionsTags(QuestionTags qt) {
         int status=tagsService.insertQuestionsTags(qt);
         if(status==1) return new RetData().success("");
+        if(status==1) return new RetData().success("");
         return new RetData().erro("500","保存失败");
     }
 

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../assets/css/dashforge.dashboard.css">
     <link rel="stylesheet" href="../../assets/css/iconfont.css">
     <link rel="stylesheet" href="../../assets/css/auth.css">
+    <link rel="stylesheet" href="../../assets/css/jquery-confirm.css">
 </head>
 <body class="page-profile">
 <header class="navbar navbar-header navbar-header-fixed">
@@ -66,7 +67,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
             <div>
                 <nav aria-label="breadcrumb">
-                    <a href="#modalBillingInfo" data-toggle="modal" class="outline-none btn btn-sm btn-primary btn-uppercase">
+                    <a href="#addGradeModalBillingInfo" data-toggle="modal" class="outline-none btn btn-sm btn-primary btn-uppercase">
                         <i class="iconfont _class add">&#xe62e;</i>
                         <span>新增年级</span>
                     </a>
@@ -90,9 +91,41 @@
     </div><!-- container -->
 </div><!-- content -->
 
+<div class="modal fade" id="addGradeModalBillingInfo" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <div class="media-body">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2">新增年级</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-b-40 pd-sm-x-30">
+
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">年级名称</label>
+                    <input id="insertGradeName" type="tag-name" class="form-control" placeholder="请输入年级名称">
+                </div>
+            </div><!-- modal-body -->
+
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="insertGrade">保存</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+
+
 <footer class="footer">
 
 </footer>
+
+
 
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -100,6 +133,7 @@
 <script src="../../lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="../../assets/js/dashforge.js"></script>
 <script src="../../assets/js/dashforge.sampledata.js"></script>
+<script src="../../lib/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="../../assets/js/grade.js"></script>
 
 

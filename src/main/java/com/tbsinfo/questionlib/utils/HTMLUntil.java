@@ -20,6 +20,9 @@ public class HTMLUntil {
 
     public static void dealBaseQuestionList(List<BaseQuestions> list) {
         for(BaseQuestions b : list) {
+            if (b.getContent()==null){
+                continue;
+            }
            String simple=StripHT(b.getContent());
            if(simple.length()>10) {
                simple=simple.substring(0,10)+"...";
