@@ -61,7 +61,6 @@ public class BaseQuestionsController {
     }
 
     @PostMapping("/addOrUpdateQuestion")
-    @Transactional
     public RetData addOrUpdateQuestion(@RequestBody BaseQuestions baseQuestions) {
         baseQuestions.setUpdatedAt(new Date());
         baseQuestions.setSource(1);
@@ -72,13 +71,8 @@ public class BaseQuestionsController {
         }
             res = questionsService.saveOrUpdate(baseQuestions);
 
-        if(baseQuestions.getId()==null) {
-            BaseQuestions maxOne =questionsService.getMaxOne();
-            maxOne= questionsService.getById(maxOne.getId());
-            return new RetData().success(maxOne);
-        }
             if (res) {
-                return new RetData().success(null);
+                return new RetData().success(baseQuestions);
             }
 
 
