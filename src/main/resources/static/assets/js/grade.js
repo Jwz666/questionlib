@@ -50,7 +50,7 @@ $("body").on('click','.editGradeBtn',function () {
         success: function (data) {
             console.log(data);  //在控制台打印服务器端返回的数据
             if (data.code == '200') {
-                window.location.href = "math-Gradeedit.html?id="+updateGradeId;
+                window.location.href = "math-gradeedit.html?id="+updateGradeId;
             }
         }
     });
