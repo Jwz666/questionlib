@@ -23,5 +23,5 @@ public interface GradesService extends IService<Grades> {
     public Grades getGradeInfoById(int id) ;
 
 
-
+    Integer insertGrades(Grades g);
 }

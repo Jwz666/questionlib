@@ -71,5 +71,11 @@ public class GradesController {
           if (status==1)  return new RetData().success("删除成功") ;
           return new RetData().erro("500","删除失败");
     }
+    @PostMapping("/insertGrades")
+    public RetData insertGradesTags(Grades g) {
+        int status=gradesService.insertGrades(g);
+        if(status==1) return new RetData().success("");
+        return new RetData().erro("500","保存失败");
+    }
 }
 

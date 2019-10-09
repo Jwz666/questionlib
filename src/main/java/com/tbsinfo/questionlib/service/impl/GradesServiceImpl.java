@@ -46,6 +46,10 @@ public class GradesServiceImpl extends ServiceImpl<GradesMapper, Grades> impleme
         return gradesMapper.selectById(parseInt);
     }
 
+    @Override
+    public Integer insertGrades(Grades g) {
+        return gradesMapper.insert(g);
+    }
 
 
 }

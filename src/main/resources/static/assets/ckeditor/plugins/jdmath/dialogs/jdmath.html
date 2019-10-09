@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公式编辑器</title>
+    <link href="../mathquill-0.10.1/mathquill.css" rel="stylesheet" type="text/css">
+    <link href="jdmath.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../mathquill-0.10.1/mathquill.min.js"></script>
+</head>
+<body>
+
+<div class="tabMenu">
+    <div class="tabTitle">
+        <li id="li-gongshi" class="current" onclick="displayshow('gongshi');">
+            常用公式
+        </li>
+        <li id="li-zimu" class="" onclick="displayshow('zimu');">
+            字母
+        </li>
+        <li id="li-fuhao" class="" onclick="displayshow('fuhao');">
+            符号
+        </li>
+    </div>
+    <div class="tabContent">
+        <div id="div-gongshi" class="mathBox" style="display: block;">
+            <div class="mathIcon">
+                <li onclick="insert('{/}frac{}{}')" style="background-position:-0px -272px;"></li>
+                <li onclick="insert('^{}/_{}')" style="background-position:-34px -272px;"></li>
+                <li onclick="insert('x^{}')" style="background-position:-68px -272px;"></li>
+                <li onclick="insert('x_{}')" style="background-position:-102px -272px;"></li>
+                <li onclick="insert('x^{}_{}')" style="background-position:-136px -272px;"></li>
+                <li onclick="insert('{/}bar{}')" style="background-position:-170px -272px;"></li>
+                <li onclick="insert('{/}sqrt{}')" style="background-position:-204px -272px;"></li>
+                <li onclick="insert('{/}nthroot{}{}')" style="background-position:-238px -272px;"></li>
+                <li onclick="insert('{/}sum_{n=0}^{\\infty} {k}^{2}')" style="background-position:-0px -306px;"></li>
+                <li onclick="insert('{/}sum')" style="background-position:-34px -306px;"></li>
+                <li onclick="insert('{/}log_{}^{n}')" style="background-position:-68px -306px;"></li>
+                <li onclick="insert('{/}ln')" style="background-position:-102px -306px;"></li>
+                <li onclick="insert('{/}int_{}^{}')" style="background-position:-136px -306px;"></li>
+                <li onclick="insert('{/}oint_{}^{}')" style="background-position:-170px -306px;"></li>
+                <li onclick="insert('{/}overrightarrow{ab}')" style="background-position:-204px -306px;"></li>
+                <li onclick="insert('{/}overleftarrow{ab}')" style="background-position:-238px -306px;"></li>
+            </div>
+        </div>
+        <div id="div-zimu" class="mathBox" style="display: none;">
+            <div class="mathIcon" style="height: 80px;">
+                <li onclick="insert('{/}alpha')" style="background-position:-0px -170px;"></li>
+                <li onclick="insert('{/}beta')" style="background-position:-34px -170px;"></li>
+                <li onclick="insert('{/}gamma')" style="background-position:-68px -170px;"></li>
+                <li onclick="insert('{/}delta')" style="background-position:-102px -170px;"></li>
+                <li onclick="insert('{/}varepsilon')" style="background-position:-136px -170px;"></li>
+                <li onclick="insert('{/}varphi')" style="background-position:-170px -170px;"></li>
+                <li onclick="insert('{/}lambda')" style="background-position:-204px -170px;"></li>
+                <li onclick="insert('{/}mu')" style="background-position:-238px -170px;"></li>
+                <li onclick="insert('{/}rho')" style="background-position:-0px -204px;"></li>
+                <li onclick="insert('{/}sigma')" style="background-position:-34px -204px;"></li>
+                <li onclick="insert('{/}omega')" style="background-position:-68px -204px;"></li>
+                <li onclick="insert('{/}Gamma')" style="background-position:-102px -204px;"></li>
+                <li onclick="insert('{/}Delta')" style="background-position:-136px -204px;"></li>
+                <li onclick="insert('{/}Theta')" style="background-position:-170px -204px;"></li>
+                <li onclick="insert('{/}Lambda')" style="background-position:-204px -204px;"></li>
+                <li onclick="insert('{/}Xi')" style="background-position:-238px -204px;"></li>
+                <li onclick="insert('{/}Pi')" style="background-position:-0px -238px;"></li>
+                <li onclick="insert('{/}Sigma')" style="background-position:-34px -238px;"></li>
+                <li onclick="insert('{/}Upsilon')" style="background-position:-68px -238px;"></li>
+                <li onclick="insert('{/}Phi')" style="background-position:-102px -238px;"></li>
+                <li onclick="insert('{/}Psi')" style="background-position:-136px -238px;"></li>
+                <li onclick="insert('{/}Omega')" style="background-position:-170px -238px;"></li>
+            </div>
+            <div class="more" mrows="3" isopen="0">更多</div>
+        </div>
+        <div id="div-fuhao" class="mathBox" style="display: none;">
+            <div class="mathIcon" style="height: 80px;">
+                <li onclick="insert('+')" style="background-position:-0px -0px;"></li>
+                <li onclick="insert('-')" style="background-position:-34px -0px;"></li>
+                <li onclick="insert('{/}pm')" style="background-position:-68px -0px;"></li>
+                <li onclick="insert('{/}times')" style="background-position:-102px -0px;"></li>
+                <li onclick="insert('{/}ast')" style="background-position:-136px -0px;"></li>
+                <li onclick="insert('{/}div')" style="background-position:-170px -0px;"></li>
+                <li onclick="insert('/')" style="background-position:-204px -0px;"></li>
+                <li onclick="insert('{/}bigtriangleup')" style="background-position:-238px -0px;"></li>
+                <li onclick="insert('=')" style="background-position:-0px -34px;"></li>
+                <li onclick="insert('{/}ne')" style="background-position:-34px -34px;"></li>
+                <li onclick="insert('{/}approx')" style="background-position:-68px -34px;"></li>
+                <li onclick="insert('>')" style="background-position:-102px -34px;"></li>
+                <li onclick="insert('<')" style="background-position:-136px -34px;"></li>
+                <li onclick="insert('{/}ge')" style="background-position:-170px -34px;"></li>
+                <li onclick="insert('{/}le')" style="background-position:-204px -34px;"></li>
+                <li onclick="insert('{/}infty')" style="background-position:-238px -34px;"></li>
+                <li onclick="insert('{/}cap')" style="background-position:-0px -68px;"></li>
+                <li onclick="insert('{/}cup')" style="background-position:-34px -68px;"></li>
+                <li onclick="insert('{/}because')" style="background-position:-68px -68px;"></li>
+                <li onclick="insert('{/}therefore')" style="background-position:-102px -68px;"></li>
+                <li onclick="insert('{/}subset')" style="background-position:-136px -68px;"></li>
+                <li onclick="insert('{/}supset')" style="background-position:-170px -68px;"></li>
+                <li onclick="insert('{/}subseteq')" style="background-position:-204px -68px;"></li>
+                <li onclick="insert('{/}supseteq')" style="background-position:-238px -68px;"></li>
+                <li onclick="insert('{/}nsubseteq')" style="background-position:-0px -102px;"></li>
+                <li onclick="insert('{/}nsupseteq')" style="background-position:-34px -102px;"></li>
+                <li onclick="insert('{/}in')" style="background-position:-68px -102px;"></li>
+                <li onclick="insert('{/}ni')" style="background-position:-102px -102px;"></li>
+                <li onclick="insert('{/}notin')" style="background-position:-136px -102px;"></li>
+                <li onclick="insert('{/}mapsto')" style="background-position:-170px -102px;"></li>
+                <li onclick="insert('{/}leftarrow')" style="background-position:-204px -102px;"></li>
+                <li onclick="insert('{/}rightarrow')" style="background-position:-238px -102px;"></li>
+                <li onclick="insert('{/}Leftarrow')" style="background-position:-0px -136px;"></li>
+                <li onclick="insert('{/}Rightarrow')" style="background-position:-34px -136px;"></li>
+                <li onclick="insert('{/}leftrightarrow')" style="background-position:-68px -136px;"></li>
+                <li onclick="insert('{/}Leftrightarrow')" style="background-position:-102px -136px;"></li>
+            </div>
+            <div class="more" mrows="5" isopen="0">更多</div>
+        </div>
+    </div>
+</div>
+
+<div id="mathDiv">
+    <p>
+        <span id="jme-math" class="mathquill-rendered-math mathquill-editable" mathquill-block-id="1" style="font-size: 20px;"></span>
+    </p>
+    <input type="hidden" id="latex" name="latex" value="">
+</div>
+<script>
+    var MQ = MathQuill.getInterface(2);
+    var answerSpan = document.getElementById('jme-math');
+    var answerMathField = MQ.MathField(answerSpan, {
+        handlers: {
+            edit: function() {
+                console.log(answerMathField.el());
+                var enteredMath = answerMathField.latex(); // Get entered math in LaTeX format
+                console.log(enteredMath);
+                $("#latex").attr("value",enteredMath);
+                //checkAnswer(enteredMath);
+            }
+        }
+    });
+    function insert(formula) {
+        formula = formula.replace("{/}","\\");
+        console.log(formula);
+        answerMathField.write(formula);
+    }
+$(function () {
+    $(".tabContent div.mathBox div.more").click(function(){
+        var rowHei = 40;
+        var mi = $(this).parent().find(".mathIcon");
+        if($(this).attr("isOpen") == '0'){
+            mi.animate({"height":(rowHei * Number($(this).attr("mrows")))+"px"});
+            $(this).html("↑ 收起");
+            $(this).attr("isOpen",'1');
+        }else{
+            mi.animate({"height":(rowHei * 2)+"px"});
+            $(this).html("更多");
+            $(this).attr("isOpen",'0');
+        }
+
+    });
+});
+    function displayshow(id) {
+        $("#li-gongshi").removeClass();
+        $("#li-zimu").removeClass();
+        $("#li-fuhao").removeClass();
+        $("#div-gongshi").hide()
+        $("#div-zimu").hide();
+        $("#div-fuhao").hide();
+
+        if(id == 'gongshi'){
+            $("#li-gongshi").addClass('current');
+            $("#div-gongshi").show();
+        }else if (id == 'zimu'){
+            $("#li-zimu").addClass('current');
+            $("#div-zimu").show();
+        }else if (id == 'fuhao'){
+            $("#li-fuhao").addClass('current');
+            $("#div-fuhao").show();
+        }
+    }
+</script>
+
+
+</body>
+</html>
