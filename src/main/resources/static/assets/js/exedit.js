@@ -14,7 +14,7 @@ $(function () {
 function showDepend(parentdata) {
     $("#abilityTag").empty();
     $("#intelligenceTag").empty();
-    if(!(parentdata.id==0||parentdata.id==null)){
+    if(!(parentdata.id==null||parentdata.id==0||parentdata.id=="")){
 
 
     $.ajax({
@@ -237,6 +237,47 @@ function appendDependcy(tagid) {
                         flushTags()
                     }
                 });
+            }
+        }
+    });
+}
+function addNewQuestion() {
+    var questioninfo2={};
+    questioninfo2.questionType="-1";
+    questioninfo2.id=null;
+    questioninfo2.content=null;
+    questioninfo2.optionList=null;
+    questioninfo2.answer=null;
+    questioninfo2.analysis=null;
+    questioninfo2.createdAt=null;
+    questioninfo2.updatedAt=null;
+    questioninfo2.status=null;
+    questioninfo2.source=null;
+    questioninfo2.comment=null;
+    questioninfo2.questionDesignTime=null;
+    questioninfo2.creatorId=null;
+
+
+    $.ajax({
+        // async : false,    //表示请求是否异步处理
+        type : "post",    //请求类型
+        url : "/baseQuestions/addOrUpdateQuestion",
+        contentType: 'application/json',//请求的 URL地址
+        data: JSON.stringify(questioninfo2),
+        dataType : "json",//返回的数据类型
+        success: function (data) {
+            console.log(data);  //在控制台打印服务器端返回的数据
+            if (data.code == '200') {
+                var questionInfo=data.body;
+                $("#id").val(questionInfo.id);
+                // $("#content").text(questionInfo.content);
+                $("#type").val(questionInfo.questionType);
+                // $("#answer").val(questionInfo.answer);
+                // $("#analyis").text(questionInfo.analysis);
+                // $("#years").val(questionInfo.questionDesignTime);
+            }
+            if (data.code == '500') {
+                alert(data.message);
             }
         }
     });

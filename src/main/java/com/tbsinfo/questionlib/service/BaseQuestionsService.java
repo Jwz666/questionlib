@@ -35,4 +35,5 @@ public interface BaseQuestionsService extends IService<BaseQuestions> {
 
     RetData deleteTags(QuestionTags questionTags);
 
+    BaseQuestions getMaxOne();
 }

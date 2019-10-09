@@ -18,4 +18,6 @@ public interface BaseQuestionsMapper extends BaseMapper<BaseQuestions> {
 
     @Select("SELECT question_type FROM `quelib_base_questions` GROUP BY question_type")
     List<String> getQuestionType();
+    @Select("SELECT AUTO_INCREMENT-1 AS MAXID FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_NAME = 'quelib_base_questions'")
+    Integer selectMax();
 }

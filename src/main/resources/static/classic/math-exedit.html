@@ -397,7 +397,11 @@
 <script>
     $(function(){
         getQuestionType();
-        getData();
+        if(getQueryVariable("newQuest")==false){
+            getData();
+        }else{
+            addNewQuestion()
+        }
         CKEDITOR.replace( 'content' );
         CKEDITOR.replace( 'answer' );
         CKEDITOR.replace( 'analyis' );
@@ -483,10 +487,15 @@
     }
 
     function addOrEdit() {
+
         var questionInfo={};
         questionInfo.id=$('#id').val();
         questionInfo.content=CKEDITOR.instances.content.getData();
         questionInfo.questionType=$("#type").val();
+        if(questionInfo.questionType==-1){
+            alert("请修改题目类型");
+            return;
+        }
         //questionInfo.optionList=
         questionInfo.answer=CKEDITOR.instances.answer.getData();
         questionInfo.analysis=CKEDITOR.instances.analyis.getData();

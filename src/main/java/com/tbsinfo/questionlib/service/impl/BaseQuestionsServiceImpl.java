@@ -1,13 +1,11 @@
 package com.tbsinfo.questionlib.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.dao.QuelibQuestionTypeMapper;
 import com.tbsinfo.questionlib.dao.QuestionTagsMapper;
-import com.tbsinfo.questionlib.dao.TagsMapper;
 import com.tbsinfo.questionlib.model.BaseQuestions;
 import com.tbsinfo.questionlib.dao.BaseQuestionsMapper;
 import com.tbsinfo.questionlib.model.QuelibQuestionType;
@@ -136,6 +134,13 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
         wrapper.setEntity(questionTags);
         questionTagsMapper.delete(wrapper);
         return new RetData().success(null);
+    }
+
+    @Override
+    public BaseQuestions getMaxOne() {
+        BaseQuestions baseQuestions = new BaseQuestions();
+        baseQuestions.setId((long)baseQuestionsMapper.selectMax()); ;
+        return baseQuestions;
     }
 
 }
