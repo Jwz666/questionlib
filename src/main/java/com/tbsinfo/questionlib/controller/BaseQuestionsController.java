@@ -39,6 +39,11 @@ public class BaseQuestionsController {
     TagsService tagsService;
 
 
+    /**
+     * 分页条件获取题目信息
+     * @param questionQuery
+     * @return
+     */
     @GetMapping("/getQuestionByPage")
     public RetData getQuestionByPage( QuestionQuery questionQuery) {
         Page<BaseQuestions> page=new Page<>(questionQuery.getPage(), questionQuery.getSize());
@@ -50,16 +55,30 @@ public class BaseQuestionsController {
         return new RetData().success(iPage);
     }
 
+    /**
+     * 条件获取题目信息
+     * @param baseQuestions
+     * @return
+     */
     @GetMapping("/getQuestionList")
     public RetData getQuestionList(BaseQuestions baseQuestions) {
         return new RetData().success(questionsService.getQuestionList(baseQuestions));
     }
 
+    /**
+     * 获取题目类型
+     * @return
+     */
     @GetMapping("/getQuestionType")
     public RetData getQuestionType() {
         return new RetData().success(questionsService.getQuestionTypeList());
     }
 
+    /**
+     * 新增获取修改题目
+     * @param baseQuestions
+     * @return
+     */
     @PostMapping("/addOrUpdateQuestion")
     public RetData addOrUpdateQuestion(@RequestBody BaseQuestions baseQuestions) {
         baseQuestions.setUpdatedAt(new Date());
@@ -80,6 +99,11 @@ public class BaseQuestionsController {
         return new RetData().erro("500", "操作失败，请稍后重试");
     }
 
+    /**
+     * 获取题目相关标签
+     * @param id
+     * @return
+     */
     @GetMapping("/getQuestionTags")
     public RetData getQuestionTags(Long id) {
         if(id==null) {

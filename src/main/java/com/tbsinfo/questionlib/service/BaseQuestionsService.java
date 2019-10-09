@@ -8,7 +8,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.tbsinfo.questionlib.model.QuelibQuestionType;
 import com.tbsinfo.questionlib.model.QuestionTags;
 import com.tbsinfo.questionlib.model.Tags;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -36,4 +38,6 @@ public interface BaseQuestionsService extends IService<BaseQuestions> {
     RetData deleteTags(QuestionTags questionTags);
 
     BaseQuestions getMaxOne();
+
+    RetData uploadWordToDB(MultipartFile file) ;
 }

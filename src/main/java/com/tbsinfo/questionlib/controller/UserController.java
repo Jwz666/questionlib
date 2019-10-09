@@ -25,16 +25,32 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 根路径跳转
+     * @param response
+     * @throws Exception
+     */
     @RequestMapping("/")
     public void toIndex(HttpServletResponse response) throws Exception {
         response.sendRedirect("/classic/math-index.html");
     }
 
+    /**
+     * 登录
+     * @param userInfo
+     * @param session
+     * @return
+     */
     @PostMapping("/login")
     public RetData login(@RequestBody UserInfo userInfo, HttpSession session) {
         return userService.login(userInfo,session);
     }
 
+    /**
+     * 新增用户
+     * @param userInfo
+     * @return
+     */
     @PostMapping("/addUser")
     public RetData addUser(@RequestBody UserInfo userInfo) {
         return userService.addUser(userInfo);
