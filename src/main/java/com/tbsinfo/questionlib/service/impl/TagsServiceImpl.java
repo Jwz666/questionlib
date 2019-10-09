@@ -7,16 +7,15 @@ import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.component.TagsQuery;
 import com.tbsinfo.questionlib.dao.QuestionTagsMapper;
 import com.tbsinfo.questionlib.dao.TagsGradeRelationshipsMapper;
-import com.tbsinfo.questionlib.model.GradesTags;
-import com.tbsinfo.questionlib.model.QuestionTags;
-import com.tbsinfo.questionlib.model.Tags;
+import com.tbsinfo.questionlib.model.*;
 import com.tbsinfo.questionlib.dao.TagsMapper;
-import com.tbsinfo.questionlib.model.UserInfo;
+import com.tbsinfo.questionlib.service.BaseQuestionsService;
 import com.tbsinfo.questionlib.service.TagsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tbsinfo.questionlib.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +38,8 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements Ta
     private TagsGradeRelationshipsMapper tagsGradeRelationshipsMapper;
     @Autowired
     private QuestionTagsMapper questionTagsMapper;
+    @Autowired
+    private BaseQuestionsService baseQuestionsService;
 
     @Override
     public Tags getTagInfoById(int id) {
@@ -121,7 +122,12 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements Ta
 
 
     @Override
+    @Transactional
     public Integer insertQuestionsTags(QuestionTags qt) {
+        BaseQuestions baseQuestions = baseQuestionsService.getById(qt.getQuestionId());
+        if(baseQuestions.getStatus()!=0) {
+            baseQuestions.setStatus(1);
+        }
         return questionTagsMapper.insert(qt);
     }
 

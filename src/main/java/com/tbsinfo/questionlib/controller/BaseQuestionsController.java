@@ -67,6 +67,7 @@ public class BaseQuestionsController {
         boolean res=false;
         if(baseQuestions.getId()==null) {
             baseQuestions.setCreatedAt(new Date());
+            baseQuestions.setStatus(0);
 
         }
             res = questionsService.saveOrUpdate(baseQuestions);

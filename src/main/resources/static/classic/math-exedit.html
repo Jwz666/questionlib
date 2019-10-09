@@ -227,12 +227,12 @@
                             <div class="col-xs-6 inputInfo filterInput pl-0">
                             </div>
                             <div class="col-xs-3 inputInfo filterInput pr-0">
-                                <button class="btn btn-sm pd-x-20 btn-white btn-uppercase" style="width: 100%;">
+                                <button class="btn btn-sm pd-x-20 btn-white btn-uppercase" style="width: 100%;"onclick="addOrEdit(0)">
                                     暂存
                                 </button>
                             </div>
                             <div class="col-xs-3 inputInfo filterInput pr-0">
-                                <button class="btn btn-sm pd-x-20 btn-primary btn-uppercase mg-l-5" style="width: 100%;" onclick="addOrEdit()">
+                                <button class="btn btn-sm pd-x-20 btn-primary btn-uppercase mg-l-5" style="width: 100%;" onclick="addOrEdit(1)">
                                     提交
                                 </button>
                             </div>
@@ -487,12 +487,13 @@
 
     }
 
-    function addOrEdit() {
+    function addOrEdit(status) {
 
         var questionInfo={};
         questionInfo.id=$('#id').val();
         questionInfo.content=CKEDITOR.instances.content.getData();
         questionInfo.questionType=$("#type").val();
+        questionInfo.status=status;
         if(questionInfo.questionType==-1){
             alert("请修改题目类型");
             return;
