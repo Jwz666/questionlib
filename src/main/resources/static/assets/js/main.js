@@ -41,6 +41,15 @@ function questionTypeFormatter(questionType) {
         case 3:
             questionTypeStr = "填空题";
             break;
+        default:questionTypeStr ="暂无";
     }
     return questionTypeStr;
+}
+
+function contentConvert(questionContent) {
+    if(questionContent=='' || questionContent==null || questionContent==undefined) {
+        return "题干暂无";
+    }else {
+        return questionContent;
+    }
 }
