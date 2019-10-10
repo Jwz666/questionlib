@@ -17,7 +17,13 @@ $(function () {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -54,7 +60,12 @@ function showDepend(parentdata) {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -89,7 +100,12 @@ $.ajax({
 
     },
     error:function (data) {
-        alert("请刷新重试");
+        $.alert({
+            title: "",
+            content: "请刷新重试",
+            onClose: function () {
+            }
+        });
     }
 
 });
@@ -117,7 +133,12 @@ $.ajax({
 
     },
     error:function (data) {
-        alert("请刷新重试");
+        $.alert({
+            title: "",
+            content: "请刷新重试",
+            onClose: function () {
+            }
+        });
     }
 
 });
@@ -150,13 +171,21 @@ $("body").on('change','#coreAbility',function () {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
 });
 $("body").on('change','#coreIntelligence',function () {
     $("#otherIntelligence").empty();
+    $("#otherIntelligence").append(
+        '<option value="" ></option>>'
+    );
     var coreid=$(this).val();
     $.ajax({
         async : false,    //表示请求是否异步处理
@@ -181,7 +210,12 @@ $("body").on('change','#coreIntelligence',function () {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -206,7 +240,12 @@ $("body").on('click','._tagsDelBtn',function () {
             showDepend(editTags)
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });

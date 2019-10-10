@@ -15,7 +15,12 @@ $(function () {
             showChildrenTags(data)
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -57,7 +62,12 @@ function showChildrenTags(parentdata) {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });

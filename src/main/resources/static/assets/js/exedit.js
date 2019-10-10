@@ -51,7 +51,12 @@ $(function () {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -80,7 +85,12 @@ $(function () {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -139,11 +149,21 @@ function dataToTable(data) {
                     $("#analyis").text(questionInfo.analysis);
                     $("#years").val(questionInfo.questionDesignTime);
                 } else {
-                    alert("暂无数据");
+                    $.alert({
+                        title: "",
+                        content: "暂无数据",
+                        onClose: function () {
+                        }
+                    });
                 }
             }
             if (data.code == '500') {
-                alert(data.message);
+                $.alert({
+                    title: "",
+                    content: data.message,
+                    onClose: function () {
+                    }
+                });
             }
         }
     });
@@ -168,7 +188,12 @@ function getQuestionType() {
                 }
             }
             if (data.code == '500') {
-                alert(data.message);
+                $.alert({
+                    title: "",
+                    content: data.message,
+                    onClose: function () {
+                    }
+                });
             }
         }
     });
@@ -184,7 +209,13 @@ function addOrEdit(status) {
     questionInfo.questionType=$("#type").val();
     questionInfo.status=status;
     if(questionInfo.questionType==-1){
-        alert("请修改题目类型");
+
+        $.alert({
+            title: "",
+            content: '请修改题目类型',
+            onClose: function () {
+            }
+        });
         return;
     }
     //questionInfo.optionList=
@@ -207,11 +238,23 @@ function addOrEdit(status) {
         success: function (data) {
             console.log(data);  //在控制台打印服务器端返回的数据
             if (data.code == '200') {
-                alert("操作成功");
-                window.location.href="math-exe.html-index";
+
+                $.alert({
+                    title: "",
+                    content: '操作成功',
+                    onClose: function () {
+                        window.location.href="math-exe-index.html";
+                    }
+                });
+
             }
             if (data.code == '500') {
-                alert(data.message);
+                $.alert({
+                    title: "",
+                    content: data.message,
+                    onClose: function () {
+                    }
+                });
             }
         }
     });
@@ -220,12 +263,23 @@ function addOrEdit(status) {
 
 function vaild(questionInfo) {
     if(questionInfo.content==null || questionInfo.content=='') {
-        alert("请添加题干内容");
-        return false;
+        $.alert({
+            title: "",
+            content: "请添加题干内容",
+            onClose: function () {
+                return false;
+            }
+        });
+
     }
     if(questionInfo.answer==null || questionInfo.answer=='') {
-        alert("请添加答案内容");
-        return false;
+        $.alert({
+            title: "",
+            content: "请添加答案内容",
+            onClose: function () {
+                return false;
+            }
+        });
     }
     return true;
 }
@@ -265,7 +319,7 @@ function showDepend(parentdata) {
                             );}
                         if (tagList[i].sonTags.tagType==2){
                             $("#intelligenceTag").append(
-                                '<span class="_tags" id="'+tagList[i].sonTags.id+'">'+(tagList[i].parentTags!=null?tagList[i].parentTags.tagName+"-":"")+"-"+tagList[i].sonTags.tagName+' <i class="_tagsDelBtn">✖</i></span>'
+                                '<span class="_tags" id="'+tagList[i].sonTags.id+'">'+(tagList[i].parentTags!=null?tagList[i].parentTags.tagName+"-":"")+tagList[i].sonTags.tagName+' <i class="_tagsDelBtn">✖</i></span>'
                             );
                         }
                     }
@@ -274,7 +328,12 @@ function showDepend(parentdata) {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -311,13 +370,21 @@ $("body").on('change','#coreAbility',function () {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
 });
 $("body").on('change','#coreIntelligence',function () {
     $("#otherIntelligence").empty();
+    $("#otherIntelligence").append(
+        '<option value="" ></option>>'
+    );
     var coreid=$(this).val();
     $.ajax({
         async : false,    //表示请求是否异步处理
@@ -342,7 +409,12 @@ $("body").on('change','#coreIntelligence',function () {
 
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -367,7 +439,12 @@ $("body").on('click','._tagsDelBtn',function () {
             showDepend(editTags)
         },
         error:function (data) {
-            alert("请刷新重试");
+            $.alert({
+                title: "",
+                content: "请刷新重试",
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -450,7 +527,12 @@ function addNewQuestion() {
                 // $("#years").val(questionInfo.questionDesignTime);
             }
             if (data.code == '500') {
-                alert(data.message);
+                $.alert({
+                    title: "",
+                    content: data.message,
+                    onClose: function () {
+                    }
+                });
             }
         }
     });

@@ -102,11 +102,21 @@ function getData(pageInfo={}) {
 
             }
             if(data.code=='500') {
-                alert(data.message);
+                $.alert({
+                    title: "",
+                    content: data.message,
+                    onClose: function () {
+                    }
+                });
             }
         },
         error:function (data) {
-            alert(data.message);
+            $.alert({
+                title: "",
+                content: data.message,
+                onClose: function () {
+                }
+            });
         }
 
     });
@@ -196,19 +206,35 @@ function uploadWord() {
         success: function (data) {
             console.log(data);  //在控制台打印服务器端返回的数据
             if (data.code == '200') {
-                alert("上传成功");
+                $.alert({
+                    title: "",
+                    content: data.message,
+                    onClose: function () {
+                    }
+                });
                 $('#modalBillingInfo').modal('hide');
                 $("#questionList").empty();
                 getData();
             }
             if (data.code == '500') {
-                alert(data.message);
-                $('#modalBillingInfo').modal('hide');
+                $.alert({
+                    title: "",
+                    content: data.message,
+                    onClose: function () {
+                        $('#modalBillingInfo').modal('hide');
+                    }
+                });
+
             }
 
         },
         error: function (data) {
-            alert(data.message);
+            $.alert({
+                title: "",
+                content: data.message,
+                onClose: function () {
+                }
+            });
         }
 
     });

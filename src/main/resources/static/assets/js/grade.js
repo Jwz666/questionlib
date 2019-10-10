@@ -131,11 +131,21 @@ function getTags(pageInfo) {
                 }
             }
             if(data.code=='500') {
-                alert(data.message);
+                $.alert({
+                    title: "",
+                    content: data.message,
+                    onClose: function () {
+                    }
+                });
             }
         },
         error:function (data) {
-            alert(data.message);
+            $.alert({
+                title: "",
+                content: data.message,
+                onClose: function () {
+                }
+            });
         }
 
     })
