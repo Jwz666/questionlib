@@ -208,7 +208,7 @@ function addOrEdit(status) {
             console.log(data);  //在控制台打印服务器端返回的数据
             if (data.code == '200') {
                 alert("操作成功");
-                window.location.href="math-exe.html-index";
+                window.location.href="math-exe.html";
             }
             if (data.code == '500') {
                 alert(data.message);
