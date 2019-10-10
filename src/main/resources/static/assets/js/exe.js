@@ -241,3 +241,8 @@ function uploadWord() {
 
 }
 
+function downloadTemplate() {
+
+    window.location.href = "/downloadTemplate";
+}
+

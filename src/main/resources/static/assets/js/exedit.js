@@ -1,6 +1,7 @@
 var editId;
 var editTags;
 var tagsId=[];
+var newherf;
 $(function () {
 
 
@@ -20,11 +21,10 @@ $(function () {
         editId=$('#id').val();
         data.id=$('#id').val();
         editTags = data;
-
-        showDepend(data)
     }
+    showDepend(data);
     //设置跳转返回页面
-    var newherf=$("#ahref2Math-exe").attr("href")+("?"+"questionsStatus=")+(editTags.status=="0"?"0":editTags.status)
+    newherf=$("#ahref2Math-exe").attr("href")+("?"+"questionsStatus=")+(editTags.status=="0"?"0":editTags.status)
     $("#ahref2Math-exe").attr("href",newherf);
     //得到全部能力点标签
     // 知识点
@@ -243,7 +243,7 @@ function addOrEdit(status) {
                     title: "",
                     content: '操作成功',
                     onClose: function () {
-                        window.location.href="math-exe-index.html";
+                        window.location.href= newherf;
                     }
                 });
 
