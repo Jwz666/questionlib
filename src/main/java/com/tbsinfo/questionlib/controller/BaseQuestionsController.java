@@ -83,7 +83,7 @@ public class BaseQuestionsController {
     @PostMapping("/addOrUpdateQuestion")
     public RetData addOrUpdateQuestion(@RequestBody BaseQuestions baseQuestions) {
         baseQuestions.setUpdatedAt(new Date());
-        baseQuestions.setSource(1);
+        baseQuestions.setSource(0);
         boolean res=false;
         if(baseQuestions.getId()==null) {
             baseQuestions.setCreatedAt(new Date());
