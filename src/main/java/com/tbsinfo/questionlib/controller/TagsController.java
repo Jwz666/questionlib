@@ -46,6 +46,7 @@ public class TagsController {
         //ModelAndView modelAndView=new ModelAndView("math-exe.html");
         Page<Tags> page=new Page<>(tagsQuery.getPage(), tagsQuery.getSize());
         //modelAndView.addObject("Questions", page);
+//        new
         return new RetData().success(tagsService.getTagsList(page,tagsQuery));
     }
     @PostMapping("/updateTag")
