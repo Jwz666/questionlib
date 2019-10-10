@@ -27,6 +27,7 @@ $(function () {
                             pageInfo.page = currentPageIndex;
                             getTags(pageInfo);
                             $(".modal").modal('hide');
+                            $("#insertGradeName").empty();
                         }
                     });
                 }

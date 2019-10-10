@@ -22,6 +22,8 @@ public class QuestionQuery extends BaseQuery{
      */
     private Integer questionType;
 
+    private Integer status;
+
     /**
      * 题干
      */

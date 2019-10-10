@@ -25,7 +25,7 @@ import java.nio.file.Paths;
  * @time 12:10
  * @desc
  */
-@RestController
+// @RestController
 public class FileController {
 
     @Value("${file.upload.path}")

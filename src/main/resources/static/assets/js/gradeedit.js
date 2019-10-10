@@ -45,7 +45,7 @@ function showDepend(parentdata) {
                         );}
                         if (tagList[i].sonTags.tagType==2){
                             $("#intelligenceTag").append(
-                                  '<span class="_tags" id="'+tagList[i].sonTags.id+'">'+tagList[i].parentTags.tagName+"-"+tagList[i].sonTags.tagName+' <i class="_tagsDelBtn">✖</i></span>'
+                                  '<span class="_tags" id="'+tagList[i].sonTags.id+'">'+(tagList[i].parentTags!=null?tagList[i].parentTags.tagName+"-":"")+tagList[i].sonTags.tagName+' <i class="_tagsDelBtn">✖</i></span>'
                             );
                         }
                     }
@@ -58,69 +58,74 @@ function showDepend(parentdata) {
         }
 
     });
-    //得到根据tagType以及是否有parent得到tagList
-    //能力
-    $.ajax({
-        async : false,    //表示请求是否异步处理
-        type : "get",    //请求类型
-        url : "/tags/getTagsByTypeAndParentId",//请求的 URL地址
-        data:{tagType:1,parentId:0} ,
-        dataType : "json",//返回的数据类型
-        success: function (data) {
-            console.log(data);  //在控制台打印服务器端返回的数据
-            if(data.code=='200') {
-                var tagList=data.body;
-                if(tagList.length != 0) {
-                    for(var i=0;i<tagList.length;i++) {
-                        if (tagList[i].tagType==1){
-                            $("#coreAbility").append(
-                                '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
-                            );}
 
-                    }
-                    $("#coreAbility").trigger('change');
-                }
-            }
 
-        },
-        error:function (data) {
-            alert("请刷新重试");
-        }
-
-    });
-    // 知识点
-    $.ajax({
-        async : false,    //表示请求是否异步处理
-        type : "get",    //请求类型
-        url : "/tags/getTagsByTypeAndParentId",//请求的 URL地址
-        data:{tagType:2,parentId:0} ,
-        dataType : "json",//返回的数据类型
-        success: function (data) {
-            console.log(data);  //在控制台打印服务器端返回的数据
-            if(data.code=='200') {
-                var tagList=data.body;
-                if(tagList.length != 0) {
-                    for(var i=0;i<tagList.length;i++) {
-                        if (tagList[i].tagType==2){
-                            $("#coreIntelligence").append(
-                                '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
-                            );}
-                        $("#coreIntelligence").trigger('change');
-                    }
-                    $("#coreIntelligence").trigger('change');
-                }
-            }
-
-        },
-        error:function (data) {
-            alert("请刷新重试");
-        }
-
-    });
 
 }
+// 知识点
+//得到根据tagType以及是否有parent得到tagList
+//能力
+$.ajax({
+    async : false,    //表示请求是否异步处理
+    type : "get",    //请求类型
+    url : "/tags/getTagsByTypeAndParentId",//请求的 URL地址
+    data:{tagType:1,parentId:0} ,
+    dataType : "json",//返回的数据类型
+    success: function (data) {
+        console.log(data);  //在控制台打印服务器端返回的数据
+        if(data.code=='200') {
+            var tagList=data.body;
+            if(tagList.length != 0) {
+                for(var i=0;i<tagList.length;i++) {
+                    if (tagList[i].tagType==1){
+                        $("#coreAbility").append(
+                            '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
+                        );}
+
+                }
+                $("#coreAbility").trigger('change');
+            }
+        }
+
+    },
+    error:function (data) {
+        alert("请刷新重试");
+    }
+
+});
+$.ajax({
+    async : false,    //表示请求是否异步处理
+    type : "get",    //请求类型
+    url : "/tags/getTagsByTypeAndParentId",//请求的 URL地址
+    data:{tagType:2,parentId:0} ,
+    dataType : "json",//返回的数据类型
+    success: function (data) {
+        console.log(data);  //在控制台打印服务器端返回的数据
+        if(data.code=='200') {
+            var tagList=data.body;
+            if(tagList.length != 0) {
+                for(var i=0;i<tagList.length;i++) {
+                    if (tagList[i].tagType==2){
+                        $("#coreIntelligence").append(
+                            '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
+                        );}
+                    $("#coreIntelligence").trigger('change');
+                }
+                $("#coreIntelligence").trigger('change');
+            }
+        }
+
+    },
+    error:function (data) {
+        alert("请刷新重试");
+    }
+
+});
 $("body").on('change','#coreAbility',function () {
     $("#otherAbility").empty();
+    $("#otherAbility").append(
+        '<option value="" ></option>>'
+    );
     var coreid=$(this).val();
     $.ajax({
         async : false,    //表示请求是否异步处理
@@ -212,7 +217,9 @@ $("#saveAblity").click(function () {
     appendDependcy( $("#otherAbility").val())
 })
 $("#saveIntelligence").click(function () {
-    appendDependcy( $("#otherIntelligence").val())
+
+   if($("#otherIntelligence").val()!=null&&$("#otherIntelligence").val()!=""){ appendDependcy( $("#otherIntelligence").val())}
+    else  if($("#coreIntelligence").val()!=null&&$("#coreIntelligence").val()!="") { appendDependcy( $("#coreIntelligence").val())}
 })
 function appendDependcy(tagid) {
    var GradesTags={};
