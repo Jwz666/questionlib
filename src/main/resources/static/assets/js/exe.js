@@ -15,8 +15,19 @@ $(function () {
         maximumSelectionLength: 5,
         allowClear: true
     });
+    $("#questionListName").text($("#questionListName").text()+"-"+convertQuestionName(questionsStatus));
 });
+function convertQuestionName(questionsStatus) {
+    if(questionsStatus==0)return "草稿";
+    if(questionsStatus==1)return "已审核";
+    if(questionsStatus==2)return "已完成";
+    if(questionsStatus=="草稿")return 0;
+    if(questionsStatus=="已审核")return 1;
+    if(questionsStatus=="已完成")return 2;
+    return null;
 
+
+}
 function getData(pageInfo={}) {
 
     if(pageInfo.page==null || pageInfo.page == undefined || pageInfo.page=='') {
