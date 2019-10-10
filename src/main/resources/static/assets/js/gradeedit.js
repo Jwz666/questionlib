@@ -222,30 +222,44 @@ $("body").on('change','#coreIntelligence',function () {
 });
 
 $("body").on('click','._tagsDelBtn',function () {
-    //要删除的标签的id
-    var confirm_result = confirm("确定要删除这个标签吗？");
-    if (!confirm_result) {
-        return false;
-    }
-    var tagsId=$(this).parent().attr("id");
- //要删除的grade的id是 editid
-    $.ajax({
-        async : false,    //表示请求是否异步处理
-        type : "post",    //请求类型
-        url : "/grades/deleteGradesTag",//请求的 URL地址
-        data:{gradesId:editId,tagsId:tagsId} ,
-        dataType : "json",//返回的数据类型
-        success: function (data) {
-            console.log(data);  //在控制台打印服务器端返回的数据
-            showDepend(editTags)
-        },
-        error:function (data) {
-            $.alert({
-                title: "",
-                content: "请刷新重试",
-                onClose: function () {
+
+    deleteTagId=$(this).parent().attr("id");
+    $.confirm({
+        title: "",
+
+        content: "确定要删除这个标签吗？",
+        buttons:{
+            confirm:{
+                text:"确定",
+                action: function () {
+                    var tagsId=deleteTagId;
+                    //要删除的grade的id是 editid
+                    $.ajax({
+                        async : false,    //表示请求是否异步处理
+                        type : "post",    //请求类型
+                        url : "/grades/deleteGradesTag",//请求的 URL地址
+                        data:{gradesId:editId,tagsId:tagsId} ,
+                        dataType : "json",//返回的数据类型
+                        success: function (data) {
+                            console.log(data);  //在控制台打印服务器端返回的数据
+                            showDepend(editTags)
+                        },
+                        error:function (data) {
+                            $.alert({
+                                title: "",
+                                content: "请刷新重试",
+                                onClose: function () {
+                                }
+                            });
+                        }
+
+                    });
+
                 }
-            });
+            },
+            cancel:{
+                text:"取消"
+            }
         }
 
     });
