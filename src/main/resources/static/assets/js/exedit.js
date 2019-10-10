@@ -15,7 +15,7 @@ $(function () {
     CKEDITOR.replace( 'content' );
     CKEDITOR.replace( 'answer' );
     CKEDITOR.replace( 'analyis' );
-    var data={}
+    var data={};
     data.id=$('#id').val();
     if (editId==null||editId=="") {
         editId=$('#id').val();
@@ -172,7 +172,7 @@ function dataToTable(data) {
 
 function getQuestionType() {
     $.ajax({
-        // async : false,    //表示请求是否异步处理
+        async : false,   //表示请求是否异步处理
         type : "get",    //请求类型
         url : "/baseQuestions/getQuestionType",//请求的 URL地址
         dataType : "json",//返回的数据类型

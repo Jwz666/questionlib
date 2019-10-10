@@ -116,7 +116,7 @@ function getTags(pageInfo) {
                             ' <tr id="'+tagList[i].id+'">\n' +
                             '     <td id="trTagName">'+tagList[i].tagName+'</td>\n' +
                             '     <td id="trTagType">'+tagType(tagList[i].tagType)+'</td>\n' +
-                            '     <td></td>\n' +
+                            '     <td>'+((tagList[i].parentId!=0)?"多级标签":"一级标签")+'</td>\n' +
                             '     <td>\n' +
                             '         <button class="btn btn-sm btn-primary btn-uppercase editTagsBtn">编辑</button>\n' +
                             '     </td>\n' +
