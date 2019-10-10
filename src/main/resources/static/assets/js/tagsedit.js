@@ -96,10 +96,10 @@ $("body").on('click','.editTagsBtn',function () {
     }
 });
 //模态框更新tag操作
-$("body").on('click','#updateTag',function () {
+function updateTags() {
     var  updateTag={};
-    updateTag.id=updateTagId;
-    updateTag.tagName=$("#updateTagName").val();
+    updateTag.id=editId;
+    updateTag.tagName=$("#editTagsName").val();
     // updateTag.tagType=$("#updateTagType").val();
     $.ajax({
         // async : false,    //表示请求是否异步处理
@@ -129,7 +129,7 @@ $("body").on('click','#updateTag',function () {
             }
         }
     });
-})
+}
 //tagType再现
 function tagType(tagType) {
     if (tagType==0){return "无";}
