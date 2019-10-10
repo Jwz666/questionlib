@@ -147,7 +147,7 @@
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" onclick="uploadWord()">保存</button>
             </div>
 
 
@@ -329,6 +329,44 @@
         window.location.href = "/downloadTemplate";
     }
 
+    $("#customFile").on("change", function () {
+        var file = document.getElementById('customFile').files[0];
+        $(this).siblings("label").text(file.name);
+    })
+
+    function uploadWord() {
+        var form = new FormData();
+        var file = document.getElementById('customFile').files[0];
+        form.append("file", file);
+        $.ajax({
+            //async : false,    //表示请求是否异步处理
+            type: "post",    //请求类型
+            url: "/uploadWord",
+            contentType: false,
+            processData: false,
+            data: form,
+            dataType: "json",//返回的数据类型
+            success: function (data) {
+                console.log(data);  //在控制台打印服务器端返回的数据
+                if (data.code == '200') {
+                    alert("上传成功");
+                    $('#modalBillingInfo').modal('hide');
+                    $("#questionList").empty();
+                    getData();
+                }
+                if (data.code == '500') {
+                    alert(data.message);
+                    $('#modalBillingInfo').modal('hide');
+                }
+
+            },
+            error: function (data) {
+                alert(data.message);
+            }
+
+        });
+
+    }
 
 
 </script>

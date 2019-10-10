@@ -229,7 +229,7 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
                 }
             }
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            e.printStackTrace();
             return new RetData().erro("500", "上传发生未知错误，请稍后重试");
         }
         return new RetData();
