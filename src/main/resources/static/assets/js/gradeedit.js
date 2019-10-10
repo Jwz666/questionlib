@@ -10,7 +10,7 @@ $(function () {
         dataType : "json",//返回的数据类型
         success: function (data) {
             console.log(data);  //在控制台打印服务器端返回的数据
-            $("#editTagsName").val(data.tagName);
+            $("#editTagsName").val(data.gradeName);
             editTags=data;
             //子标签刷新
             showDepend(data)
@@ -28,6 +28,8 @@ $(function () {
 
     });
     //得到全部能力点标签
+    $("#coreIntelligence").trigger('change');
+    $("#coreAbility").trigger('change');
 });
 //得到子标签列表
 function showDepend(parentdata) {
@@ -88,14 +90,14 @@ $.ajax({
             var tagList=data.body;
             if(tagList.length != 0) {
                 for(var i=0;i<tagList.length;i++) {
-                    if (tagList[i].tagType==1){
+                    if (tagList[i].tagType == 1) {
                         $("#coreAbility").append(
-                            '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
-                        );}
-
+                            '<option value="' + tagList[i].id + '">' + tagList[i].tagName + '</option>'
+                        );
+                    }
                 }
-                $("#coreAbility").trigger('change');
             }
+
         }
 
     },
@@ -125,12 +127,10 @@ $.ajax({
                         $("#coreIntelligence").append(
                             '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
                         );}
-                    $("#coreIntelligence").trigger('change');
                 }
-                $("#coreIntelligence").trigger('change');
             }
-        }
 
+        }
     },
     error:function (data) {
         $.alert({
@@ -311,7 +311,7 @@ function appendDependcy(tagid) {
                 });
             }
         }
-    });
+});
 }
 function getQueryVariable(variable)
 {
@@ -322,4 +322,36 @@ function getQueryVariable(variable)
         if(pair[0] == variable){return pair[1];}
     }
     return(false);
+}
+function updateGrade() {
+    var Grades=editTags;
+    Grades.id=editId;
+    Grades.gradeName=$("#editTagsName").val();
+    $.ajax({
+        // async : false,    //表示请求是否异步处理
+        type : "post",    //请求类型
+        url : "/grades/updateGrade",//请求的 URL地址
+        data: Grades,
+        dataType : "json",//返回的数据类型
+        success: function (data) {
+            console.log(data);  //在控制台打印服务器端返回的数据
+            if (data.code == '200') {
+                $.alert({
+                    title: "提示",
+                    content: data.message,
+                    onClose: function () {
+                    }
+                });
+            }
+            if (data.code == '500') {
+                $.alert({
+                    title: "",
+                    content: data.message,
+                    onClose: function () {
+                    }
+                });
+            }
+        }
+    });
+
 }

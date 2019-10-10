@@ -48,9 +48,13 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements Ta
     @Override
     public IPage<Tags> getTagsList(Page<Tags> page , TagsQuery tagsQuery){
         QueryWrapper<Tags> queryWrapper=new QueryWrapper<>();
-       if (tagsQuery.getTagType()!=null)queryWrapper.eq("tag_type",tagsQuery.getTagType());
-        if (tagsQuery.getParentId()!=null) queryWrapper.eq("parent_id",tagsQuery.getParentId());
+        Tags tags = new Tags();
+
+       if (tagsQuery.getTagType()!=null)tags.setTagType(tagsQuery.getTagType());
+        if (tagsQuery.getParentId()!=null) tags.setParentId(tagsQuery.getParentId());
+        queryWrapper.setEntity(tags);
         return tagsMapper.selectPage(page,queryWrapper);
+
 
     }
 

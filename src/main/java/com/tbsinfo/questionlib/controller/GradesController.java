@@ -77,5 +77,12 @@ public class GradesController {
         if(status==1) return new RetData().success("");
         return new RetData().erro("500","保存失败");
     }
+
+    @PostMapping("/updateGrade")
+    public RetData updateGrade(Grades g) {
+        boolean status=gradesService.updateById(g);
+        if(status) return new RetData().success("修改成功");
+        return new RetData().erro("500","保存失败");
+    }
 }
 
