@@ -50,6 +50,7 @@ public class BaseQuestionsController {
         BaseQuestions baseQuestions=new BaseQuestions();
         baseQuestions.setId(questionQuery.getId());
         baseQuestions.setQuestionType(questionQuery.getQuestionType());
+        baseQuestions.setStatus(questionQuery.getStatus());
         IPage<BaseQuestions> iPage=questionsService.getQuestionList(page,baseQuestions);
         HTMLUntil.dealBaseQuestionList(iPage.getRecords());
         return new RetData().success(iPage);

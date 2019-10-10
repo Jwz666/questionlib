@@ -1,5 +1,12 @@
+var questionsStatus=null;
+var totalPage = 0;
+var currentPageIndex=0;
+
 $(function () {
-    getQueryVariable("questionsStatus");
+    if ( getQueryVariable("questionsStatus")=="0"||getQueryVariable("questionsStatus")!=false){
+        questionsStatus=getQueryVariable("questionsStatus");
+    }
+
     getData();
 
 
@@ -10,11 +17,11 @@ $(function () {
     });
 });
 
-totalPage = 0;
-currentPageIndex=0;
 function getData(pageInfo={}) {
+
     if(pageInfo.page==null || pageInfo.page == undefined || pageInfo.page=='') {
         pageInfo.page=1;
+        pageInfo.status=questionsStatus;
         currentPageIndex=1;
     }
 

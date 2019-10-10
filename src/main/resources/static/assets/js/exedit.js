@@ -1,5 +1,6 @@
 var editId;
 var editTags;
+var tagsId=[];
 $(function () {
 
 
@@ -22,10 +23,79 @@ $(function () {
 
         showDepend(data)
     }
+    //设置跳转返回页面
+    var newherf=$("#ahref2Math-exe").attr("href")+("?"+"questionsStatus=")+(editTags.status=="0"?"0":editTags.status)
+    $("#ahref2Math-exe").attr("href",newherf);
     //得到全部能力点标签
+    // 知识点
+    $.ajax({
+        async : false,    //表示请求是否异步处理
+        type : "get",    //请求类型
+        url : "/tags/getTagsByTypeAndParentId",//请求的 URL地址
+        data:{tagType:2,parentId:0} ,
+        dataType : "json",//返回的数据类型
+        success: function (data) {
+            console.log(data);  //在控制台打印服务器端返回的数据
+            if(data.code=='200') {
+                var tagList=data.body;
+                if(tagList.length != 0) {
+                    for(var i=0;i<tagList.length;i++) {
+                        if (tagList[i].tagType==2){
+                            $("#coreIntelligence").append(
+                                '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
+                            );}
+                    }
+                    $("#coreIntelligence").trigger('change');
+                }
+            }
+
+        },
+        error:function (data) {
+            alert("请刷新重试");
+        }
+
+    });
+    //能力
+    $.ajax({
+        async : false,    //表示请求是否异步处理
+        type : "get",    //请求类型
+        url : "/tags/getTagsByTypeAndParentId",//请求的 URL地址
+        data:{tagType:1,parentId:0} ,
+        dataType : "json",//返回的数据类型
+        success: function (data) {
+            console.log(data);  //在控制台打印服务器端返回的数据
+            if(data.code=='200') {
+                var tagList=data.body;
+                if(tagList.length != 0) {
+                    for(var i=0;i<tagList.length;i++) {
+                        if (tagList[i].tagType==1){
+                            $("#coreAbility").append(
+                                '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
+                            );}
+
+                    }
+                    $("#coreAbility").trigger('change');
+                }
+            }
+
+        },
+        error:function (data) {
+            alert("请刷新重试");
+        }
+
+    });
+//获取url参数
+    $("#saveAblity").click(function () {
+        appendDependcy( $("#otherAbility").val())
+    })
+    $("#saveIntelligence").click(function () {
+        if($("#otherIntelligence").val()!=null&&$("#otherIntelligence").val()!=""){ appendDependcy( $("#otherIntelligence").val())}
+        else  if($("#coreIntelligence").val()!=null&&$("#coreIntelligence").val()!="") { appendDependcy( $("#coreIntelligence").val())}
+    })
+
 });
 
-tagsId=[];
+
 
 function getData(){
 
@@ -34,6 +104,7 @@ function getData(){
     if(questionInfo.indexOf("=")!= -1) {
         var twodata = questionInfo.split("="); //截取 url中的“=”,获得“=”后面的参数
         var data = decodeURI(twodata[1]); //decodeURI解码
+        data.status=null;
         var jsonData=JSON.parse(data);
         console.log(jsonData.id);
         dataToTable(jsonData);
@@ -46,7 +117,7 @@ function dataToTable(data) {
     console.log(data);
     $("#id").val(data.id);
     $.ajax({
-        // async : false,    //表示请求是否异步处理
+        async : false,    //表示请求是否异步处理
         type : "get",    //请求类型
         url : "/baseQuestions/getQuestionList",//请求的 URL地址
         data: data,
@@ -60,7 +131,8 @@ function dataToTable(data) {
                     for (var i = 0; i < questionList.length; i++) {
                         questionInfo = questionList[i];
                     }
-
+                    editId=questionInfo.id;
+                    editTags=questionInfo;
                     $("#content").text(questionInfo.content);
                     $("#type").val(questionInfo.questionType);
                     $("#answer").val(questionInfo.answer);
@@ -136,7 +208,7 @@ function addOrEdit(status) {
             console.log(data);  //在控制台打印服务器端返回的数据
             if (data.code == '200') {
                 alert("操作成功");
-                window.location.href="math-exe.html";
+                window.location.href="math-exe.html-index";
             }
             if (data.code == '500') {
                 alert(data.message);
@@ -209,63 +281,6 @@ function showDepend(parentdata) {
     }
 
 }
-//能力
-$.ajax({
-    async : false,    //表示请求是否异步处理
-    type : "get",    //请求类型
-    url : "/tags/getTagsByTypeAndParentId",//请求的 URL地址
-    data:{tagType:1,parentId:0} ,
-    dataType : "json",//返回的数据类型
-    success: function (data) {
-        console.log(data);  //在控制台打印服务器端返回的数据
-        if(data.code=='200') {
-            var tagList=data.body;
-            if(tagList.length != 0) {
-                for(var i=0;i<tagList.length;i++) {
-                    if (tagList[i].tagType==1){
-                        $("#coreAbility").append(
-                            '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
-                        );}
-
-                }
-                $("#coreAbility").trigger('change');
-            }
-        }
-
-    },
-    error:function (data) {
-        alert("请刷新重试");
-    }
-
-});
-// 知识点
-$.ajax({
-    async : false,    //表示请求是否异步处理
-    type : "get",    //请求类型
-    url : "/tags/getTagsByTypeAndParentId",//请求的 URL地址
-    data:{tagType:2,parentId:0} ,
-    dataType : "json",//返回的数据类型
-    success: function (data) {
-        console.log(data);  //在控制台打印服务器端返回的数据
-        if(data.code=='200') {
-            var tagList=data.body;
-            if(tagList.length != 0) {
-                for(var i=0;i<tagList.length;i++) {
-                    if (tagList[i].tagType==2){
-                        $("#coreIntelligence").append(
-                            '<option value="'+tagList[i].id+'">'+tagList[i].tagName+'</option>'
-                        );}
-                }
-                $("#coreIntelligence").trigger('change');
-            }
-        }
-
-    },
-    error:function (data) {
-        alert("请刷新重试");
-    }
-
-});
 
 $("body").on('change','#coreAbility',function () {
     $("#otherAbility").empty();
@@ -358,14 +373,7 @@ $("body").on('click','._tagsDelBtn',function () {
     });
 
 });
-//获取url参数
-$("#saveAblity").click(function () {
-    appendDependcy( $("#otherAbility").val())
-})
-$("#saveIntelligence").click(function () {
-    if($("#otherIntelligence").val()!=null&&$("#otherIntelligence").val()!=""){ appendDependcy( $("#otherIntelligence").val())}
-    else  if($("#coreIntelligence").val()!=null&&$("#coreIntelligence").val()!="") { appendDependcy( $("#coreIntelligence").val())}
-})
+
 function appendDependcy(tagid) {
     var GradesTags={};
     GradesTags.questionId=editId;
