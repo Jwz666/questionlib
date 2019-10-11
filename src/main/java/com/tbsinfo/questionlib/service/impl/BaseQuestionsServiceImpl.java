@@ -57,6 +57,7 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
     public IPage<BaseQuestions> getQuestionList(Page<BaseQuestions> page,BaseQuestions baseQuestions) {
         QueryWrapper<BaseQuestions> wrapper=new QueryWrapper<>();
         wrapper.orderByDesc("created_at");
+        wrapper.ne("question_type", -1);
         wrapper.setEntity(baseQuestions);
         return baseQuestionsMapper.selectPage(page, wrapper);
     }
