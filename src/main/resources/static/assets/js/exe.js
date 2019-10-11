@@ -219,7 +219,7 @@ function uploadWord() {
             if (data.code == '200') {
                 $.alert({
                     title: "",
-                    content: data.message,
+                    content: '导入成功',
                     onClose: function () {
                     }
                 });

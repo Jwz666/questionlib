@@ -3,6 +3,7 @@ package com.tbsinfo.questionlib.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tbsinfo.questionlib.UploadWordException;
 import com.tbsinfo.questionlib.component.RetData;
 import com.tbsinfo.questionlib.dao.QuelibQuestionTypeMapper;
 import com.tbsinfo.questionlib.dao.QuestionTagsMapper;
@@ -164,6 +165,7 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
      * @param file
      * @return
      */
+    @Transactional
     @Override
     public RetData uploadWordToDB(MultipartFile file)  {
         try {
@@ -212,6 +214,17 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
                 }
                 String[] questionByNum = questionByType[i].split("<p>题号");
                 for(int j=1;j<questionByNum.length;j++) {
+                    String questionNum = questionByNum[j].substring(0, questionByNum[j].indexOf("<p>"));
+                    System.out.println(questionByNum[j]);
+                      if(questionByNum[j].indexOf("<p>题目")<0||questionByNum[j].indexOf("<p>答案")<0)   {
+                          throw new UploadWordException("题号 "+questionNum+" 题目格式错误，请检查格式，以及末尾是否有换行符");
+                      }
+                    if(questionByNum[j].indexOf("<p>答案")<0||questionByNum[j].indexOf("<p>解析")<0)   {
+                        throw new UploadWordException("题号 "+questionNum+" 答案格式错误，请检查格式，以及末尾是否有换行符");
+                    }
+                    if(questionByNum[j].indexOf("<p>解析")<0)   {
+                        throw new UploadWordException("题号 "+questionNum+" 解析格式错误，请检查格式，以及末尾是否有换行符");
+                    }
                     String questionContent=questionByNum[j].substring(questionByNum[j].indexOf("<p>题目"),questionByNum[j].indexOf("<p>答案"));
                     String questionAnswer=questionByNum[j].substring(questionByNum[j].indexOf("<p>答案"),questionByNum[j].indexOf("<p>解析"));
                     String questionAnalysis=questionByNum[j].substring(questionByNum[j].indexOf("<p>解析"));
@@ -229,7 +242,12 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
                     baseQuestionsMapper.insert(baseQuestions);
                 }
             }
-        } catch (Exception e) {
+        }
+        catch (UploadWordException wordException) {
+            logger.info(wordException.getMessage());
+            return new RetData().erro("500", wordException.getMessage());
+        }
+        catch (Exception e) {
             e.printStackTrace();
             return new RetData().erro("500", "上传发生未知错误，请稍后重试");
         }
