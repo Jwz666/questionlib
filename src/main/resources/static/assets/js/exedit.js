@@ -117,6 +117,7 @@ function getData(){
         data.status=null;
         var jsonData=JSON.parse(data);
         console.log(jsonData.id);
+        window.localStorage.setItem("currentPage",jsonData.page);
         dataToTable(jsonData);
     }
 

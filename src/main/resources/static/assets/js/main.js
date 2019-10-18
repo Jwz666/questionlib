@@ -28,7 +28,6 @@ function timeStamp2String(time){
 };
 
 function questionTypeFormatter(questionType) {
-    console.log("questionType = " + questionType);
     _questionType = parseInt(questionType);
     var questionTypeStr;
     switch (_questionType) {

@@ -29,6 +29,12 @@ function convertQuestionName(questionsStatus) {
 
 }
 function getData(pageInfo={}) {
+    var localStoPage=window.localStorage.getItem("currentPage");
+    if(localStoPage!=null) {
+        pageInfo.page=localStoPage;
+        currentPageIndex=localStoPage;
+        window.localStorage.removeItem("currentPage");
+    }
 
     if(pageInfo.page==null || pageInfo.page == undefined || pageInfo.page=='') {
         pageInfo.page=1;
@@ -51,7 +57,7 @@ function getData(pageInfo={}) {
                 var questionList=data.body.records;
                 if(questionList.length != 0) {
                     for(var i=0;i<questionList.length;i++) {
-                        console.log("heheh = " + questionList[i].questionType);
+
                         $("#questionList").append(' <tr >\n' +
                             '                                <td >'+questionList[i].id+'</td>\n' +
                             '                                <td >'+questionList[i].content+'</td>\n' +
@@ -79,14 +85,11 @@ function getData(pageInfo={}) {
                         $("#nextPage").before('<li class="page-item" data-id=' + page2 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page2 + '</a></li>');
                         $("#nextPage").before('<li class="page-item" data-id=' + page3 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page3 + '</a></li>');
                     }else if(currentPageIndex+1>totalPage) {
-                        console.log("situation 2--"+currentPageIndex);
-                        console.log("totalpage--"+totalPage);
+
                         var page1=parseInt(currentPageIndex);
                         var page2=parseInt(currentPageIndex)-1;
                         var page3=parseInt(currentPageIndex)-2;
-                        console.log("page----"+page1);
-                        console.log("page----"+page2);
-                        console.log("page----"+page3);
+
                         $("#nextPage").before('<li class="page-item" data-id=' + page3 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page3 + '</a></li>');
                         $("#nextPage").before('<li class="page-item" data-id=' + page2 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page2 + '</a></li>');
                         $("#nextPage").before('<li class="page-item" data-id=' + page1 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page1 + '</a></li>');
@@ -94,10 +97,7 @@ function getData(pageInfo={}) {
                         var page1=parseInt(currentPageIndex)-1;
                         var page2=parseInt(currentPageIndex);
                         var page3=parseInt(currentPageIndex)+1;
-                        console.log("situation 3--"+currentPageIndex);
-                        console.log("page----"+page1);
-                        console.log("page----"+page2);
-                        console.log("page----"+page3);
+
                         $("#nextPage").before('<li class="page-item" data-id=' + page1 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page1 + '</a></li>');
                         $("#nextPage").before('<li class="page-item" data-id=' + page2 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page2 + '</a></li>');
                         $("#nextPage").before('<li class="page-item" data-id=' + page3 + '><a class="page-link" href="#" onclick="pageChange(this)">' + page3 + '</a></li>');
@@ -135,7 +135,7 @@ function getData(pageInfo={}) {
 
 function edit(id) {
     var  pageInfo={};
-    pageInfo.page=1;
+    pageInfo.page=currentPageIndex;
     pageInfo.size=10;
     pageInfo.id=id;
     var url=encodeURI("math-exedit.html?questionId="+JSON.stringify(pageInfo));
