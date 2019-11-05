@@ -24,6 +24,8 @@ public class QuestionlibApplicationTests {
     @Value("${file.upload.path}")
     private String imagePath;
 
+
+
     @Autowired
     private BaseQuestionsMapper baseQuestionsMapper;
 
@@ -111,4 +113,12 @@ public class QuestionlibApplicationTests {
         }
         return text;
     }
+
+    @Test
+    public void  testStream() throws Exception {
+        FileOutputStream fileOutputStream=new FileOutputStream("D:/test.txt");
+        fileOutputStream.write("test".getBytes("UTF-8"));
+        fileOutputStream.close();
+    }
+
 }

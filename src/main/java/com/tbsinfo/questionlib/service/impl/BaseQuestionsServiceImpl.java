@@ -13,10 +13,12 @@ import com.tbsinfo.questionlib.model.QuelibQuestionType;
 import com.tbsinfo.questionlib.model.QuestionTags;
 import com.tbsinfo.questionlib.service.BaseQuestionsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFPictureData;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
+
+import org.apache.poi.xwpf.usermodel.*;
+import org.dom4j.Document;
+import org.dom4j.DocumentFactory;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +27,9 @@ import org.springframework.stereotype.Service;
 import com.tbsinfo.questionlib.model.Tags;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.xml.sax.InputSource;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -177,7 +178,7 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
             List<XWPFPictureData> pictures = document.getAllPictures();
             Map<String, String> pictureMap = new HashMap<>();
             StringBuffer contentBuffer = new StringBuffer();
-
+            StringBuffer xmlBuffer=new StringBuffer();
             int type = 1;
             //将所有图片存至服务器
             for (XWPFPictureData pictureData : pictures) {
@@ -197,7 +198,9 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
             for (XWPFParagraph paragraph : paragraphs) {
                 //获取所有题目信息
                 contentBuffer.append("<p>"+getText(paragraph, pictureMap)+"</p>");
+
             }
+
             //拆分
             String content=contentBuffer.toString();
             content=content.substring( content.indexOf("<p>标题"));
@@ -215,7 +218,6 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
                 String[] questionByNum = questionByType[i].split("<p>题号");
                 for(int j=1;j<questionByNum.length;j++) {
                     String questionNum = questionByNum[j].substring(0, questionByNum[j].indexOf("<p>"));
-                    System.out.println(questionByNum[j]);
                       if(questionByNum[j].indexOf("<p>题目")<0||questionByNum[j].indexOf("<p>答案")<0)   {
                           throw new UploadWordException("题号 "+questionNum+" 题目格式错误，请检查格式，以及末尾是否有换行符");
                       }
@@ -239,7 +241,7 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
                     baseQuestions.setUpdatedAt(new Date());
                     baseQuestions.setStatus(0);
                     //保存题目至数据库
-                    baseQuestionsMapper.insert(baseQuestions);
+                   // baseQuestionsMapper.insert(baseQuestions);
                 }
             }
         }
@@ -260,10 +262,13 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
      * @param pictureMap
      * @return
      */
-    String getText(XWPFParagraph paragraph,Map pictureMap) {
+    String getText(XWPFParagraph paragraph,Map pictureMap) throws Exception {
         String text="";
         List<XWPFRun> runs=paragraph.getRuns();
+
         for(XWPFRun run:runs) {
+
+
             if(run.getCTR().xmlText().indexOf("<w:drawing>")!=-1){
                 String runXmlText = run.getCTR().xmlText();
                 int rIdIndex = runXmlText.indexOf("r:embed");
@@ -277,6 +282,10 @@ public class BaseQuestionsServiceImpl extends ServiceImpl<BaseQuestionsMapper, B
             }
 
         }
+
+
         return text;
     }
+
+
 }
